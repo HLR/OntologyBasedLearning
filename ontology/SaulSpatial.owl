@@ -27,30 +27,54 @@
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The color of the spatial entity</rdfs:comment>
   </owl:Class>
-  <owl:Class rdf:ID="v">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >When FoR is relative, this indicates the viewer as first, second or third person.</rdfs:comment>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >viewer</rdfs:label>
+  <owl:Class rdf:ID="dynamicSpatialConfiguration">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="spatialConfiguration"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="m">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Spatial movement usually described by a motion verb.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="indicator"/>
+    </rdfs:subClassOf>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >motion indicator</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Spatial movement usually described by a motion verb.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="v">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >viewer</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >When FoR is relative, this indicates the viewer as first, second or third person.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="sizeTypes">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The color of the spatial entity</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="sp">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >The lexical form of the relation between the tr and lm.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="spatialEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#indicator"/>
+    </rdfs:subClassOf>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >spatial indicator</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The lexical form of the relation between the tr and lm.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="cube">
     <rdfs:subClassOf rdf:resource="#block"/>
+  </owl:Class>
+  <owl:Class rdf:ID="speedOfMovment">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The value of the movment speed.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="span">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >span</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The text fragment describing given spatial or motion indicator</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="thirdPerson">
     <rdfs:subClassOf rdf:resource="#v"/>
@@ -67,132 +91,148 @@
     >The type of movment</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="lmInContext">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >The reference object that describes the location of the tr or is a part of its path of motion.</rdfs:comment>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >landmarkInContet</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The reference object that describes the location of the tr or is a part of its path of motion.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
   <owl:Class rdf:ID="distance">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >These are the entities whose location are described.</rdfs:comment>
   </owl:Class>
+  <owl:Class rdf:about="#indicator">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Lecical indicator</rdfs:comment>
+  </owl:Class>
   <owl:Class rdf:about="#region">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >These are the reference object for describing the location of the trajectors.</rdfs:comment>
     <rdfs:subClassOf>
       <owl:Class rdf:ID="lm"/>
     </rdfs:subClassOf>
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >These are the reference object for describing the location of the trajectors.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="FoR">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >A type of the coordinate system to identify location of an object, can be intrinsic, relative or absolute.</rdfs:comment>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >frame-of-reference-type</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A type of the coordinate system to identify location of an object, can be intrinsic, relative or absolute.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="head">
     <rdfs:subClassOf rdf:resource="#sp"/>
   </owl:Class>
-  <owl:Class rdf:ID="spatialEntity">
+  <owl:Class rdf:about="#spatialEntity">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The entity that participates in spatial configurations with varied roles of tr, lm or a part of a path.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="pathElement">
+    <rdfs:subClassOf rdf:resource="#spatialEntity"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The element of the path</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="#spatialEntity"/>
   </owl:Class>
-  <owl:Class rdf:ID="spatialConfiguration">
+  <owl:Class rdf:about="#spatialConfiguration">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The spatial configuration of the situation discribied in the nl setance or its part.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="QT">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >The qualitative - formal type of the relation between the tr and lm.</rdfs:comment>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >spatial indicator</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The qualitative - formal type of the relation between the tr and lm.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="#lm">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >The reference object that describes the location of the tr or is a part of its path of motion.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#spatialEntity"/>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >landmark</rdfs:label>
-    <rdfs:subClassOf rdf:resource="#spatialEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The reference object that describes the location of the tr or is a part of its path of motion.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:ID="path">
+    <rdfs:subClassOf rdf:resource="#spatialEntity"/>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The tr location can be described via a path of motion instead of a basic lm.</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="#spatialEntity"/>
   </owl:Class>
   <owl:Class rdf:ID="firstPerson">
     <rdfs:subClassOf rdf:resource="#v"/>
   </owl:Class>
   <owl:Class rdf:ID="tr">
-    <rdfs:subClassOf rdf:resource="#lm"/>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >trajector</rdfs:label>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >The entity whose location or trans-location is described in a spatial configuration.</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >trajector</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#lm"/>
   </owl:Class>
   <owl:Class rdf:ID="column">
     <rdfs:subClassOf rdf:resource="#region"/>
   </owl:Class>
+  <owl:ObjectProperty rdf:ID="hasLm">
+    <rdfs:range rdf:resource="#lm"/>
+    <rdfs:domain rdf:resource="#lmInContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasLmInContext">
-    <rdfs:range rdf:resource="#lmInContext"/>
     <rdfs:domain rdf:resource="#spatialConfiguration"/>
+    <rdfs:range rdf:resource="#lmInContext"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="tnpp">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >nonTangentialProperPart</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:ID="pp"/>
     </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nonTangentialProperPart</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="hasPathElementPosition">
-    <rdfs:range rdf:resource="#pathElementPosition"/>
+  <owl:ObjectProperty rdf:ID="hasTr">
+    <rdfs:domain rdf:resource="#spatialConfiguration"/>
+    <rdfs:range rdf:resource="#tr"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="#pathElement"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasFoR">
+    <rdfs:domain rdf:resource="#lmInContext"/>
+    <rdfs:range rdf:resource="#FoR"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasV">
+    <rdfs:domain rdf:resource="#spatialConfiguration"/>
+    <rdfs:range rdf:resource="#v"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="ntppi">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >nonTangentialProperPartInverse</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:ID="ppi"/>
     </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nonTangentialProperPartInverse</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasSp">
+    <rdfs:domain rdf:resource="#lmInContext"/>
+    <rdfs:range rdf:resource="#sp"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasPathElement">
-    <rdfs:domain rdf:resource="#path"/>
     <rdfs:range rdf:resource="#pathElement"/>
+    <rdfs:domain rdf:resource="#path"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="col">
+    <rdfs:range rdf:resource="#color"/>
+    <rdfs:domain rdf:resource="#lm"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="dr">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >discrete</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:ID="hasConnection"/>
     </rdfs:subPropertyOf>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >discrete</rdfs:label>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="tpp">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >tangentialProperPart</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:about="#pp"/>
     </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tangentialProperPart</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="span">
-    <rdfs:domain>
-      <owl:Class>
-        <owl:unionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="#spatialEntity"/>
-          <owl:Class rdf:about="#spatialConfiguration"/>
-        </owl:unionOf>
-      </owl:Class>
-    </rdfs:domain>
-    <rdfs:range rdf:resource="#sp"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="hasPath">
-    <rdfs:range rdf:resource="#path"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="#spatialConfiguration"/>
+  <owl:ObjectProperty rdf:ID="directionOfMovment">
+    <rdfs:range rdf:resource="#spatialEntity"/>
+    <rdfs:domain rdf:resource="#m"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="isAtFront">
     <rdfs:subPropertyOf>
@@ -200,8 +240,8 @@
     </rdfs:subPropertyOf>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="manner">
-    <rdfs:range rdf:resource="#movmentManner"/>
     <rdfs:domain rdf:resource="#m"/>
+    <rdfs:range rdf:resource="#movmentManner"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="isToLeft">
     <rdfs:subPropertyOf>
@@ -209,51 +249,51 @@
     </rdfs:subPropertyOf>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="#pp">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >properPart</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:ID="c"/>
     </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >properPart</rdfs:label>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasSpatiaRelation">
     <rdfs:domain rdf:resource="#spatialEntity"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="#ppi">
-    <owl:inverseOf rdf:resource="#pp"/>
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >properPartInverse</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:about="#c"/>
     </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >properPartInverse</rdfs:label>
+    <owl:inverseOf rdf:resource="#pp"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="#hasDirection">
-    <rdfs:range rdf:resource="#spatialEntity"/>
-    <rdfs:subPropertyOf rdf:resource="#hasSpatiaRelation"/>
     <rdfs:domain rdf:resource="#spatialEntity"/>
+    <rdfs:subPropertyOf rdf:resource="#hasSpatiaRelation"/>
+    <rdfs:range rdf:resource="#spatialEntity"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="isBelow">
     <rdfs:subPropertyOf rdf:resource="#hasDirection"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="verb">
-    <rdfs:range rdf:resource="#movmentVerb"/>
     <rdfs:domain rdf:resource="#m"/>
+    <rdfs:range rdf:resource="#movmentVerb"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="#c">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >connected</rdfs:label>
     <rdfs:subPropertyOf>
       <owl:ObjectProperty rdf:about="#hasConnection"/>
     </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >connected</rdfs:label>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="tppi">
+    <rdfs:subPropertyOf rdf:resource="#ppi"/>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >tangentialProperPartInverse</rdfs:label>
-    <rdfs:subPropertyOf rdf:resource="#ppi"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="eq">
+    <rdfs:subPropertyOf rdf:resource="#pp"/>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >equal</rdfs:label>
-    <rdfs:subPropertyOf rdf:resource="#pp"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="isToRight">
     <rdfs:subPropertyOf rdf:resource="#hasDirection"/>
@@ -262,88 +302,98 @@
     <rdfs:subPropertyOf rdf:resource="#hasDirection"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasDistance">
-    <rdfs:domain rdf:resource="#spatialEntity"/>
-    <rdfs:range rdf:resource="#distance"/>
     <rdfs:subPropertyOf rdf:resource="#hasSpatiaRelation"/>
+    <rdfs:range rdf:resource="#distance"/>
+    <rdfs:domain rdf:resource="#spatialEntity"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasQT">
-    <rdfs:range rdf:resource="#QT"/>
     <rdfs:domain rdf:resource="#spatialConfiguration"/>
+    <rdfs:range rdf:resource="#QT"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="#hasConnection">
-    <rdfs:range rdf:resource="#region"/>
-    <rdfs:subPropertyOf rdf:resource="#hasSpatiaRelation"/>
     <rdfs:domain rdf:resource="#region"/>
+    <rdfs:subPropertyOf rdf:resource="#hasSpatiaRelation"/>
+    <rdfs:range rdf:resource="#region"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="isAbove">
     <rdfs:subPropertyOf rdf:resource="#hasDirection"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="hasM">
-    <rdfs:range rdf:resource="#m"/>
+  <owl:ObjectProperty rdf:ID="area">
+    <rdfs:domain rdf:resource="#lm"/>
+    <rdfs:range rdf:resource="#areaNames"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="#spatialConfiguration"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="speed">
+    <rdfs:domain rdf:resource="#m"/>
+    <rdfs:range rdf:resource="#movmentVerb"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="po">
+    <rdfs:subPropertyOf rdf:resource="#c"/>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >partiallyOverlapping</rdfs:label>
-    <rdfs:subPropertyOf rdf:resource="#c"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="dc">
-    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >disconnected</rdfs:label>
-    <rdfs:subPropertyOf rdf:resource="#dr"/>
+  <owl:ObjectProperty rdf:ID="size">
+    <rdfs:domain rdf:resource="#lm"/>
+    <rdfs:range rdf:resource="#sizeTypes"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="ec">
-    <rdfs:subPropertyOf rdf:resource="#po"/>
+    <rdfs:subPropertyOf rdf:resource="#dr"/>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >externallyConnected</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="#po"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="dc">
     <rdfs:subPropertyOf rdf:resource="#dr"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disconnected</rdfs:label>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:ID="hasText">
+    <rdfs:domain rdf:resource="#indicator"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:domain rdf:resource="#sp"/>
   </owl:DatatypeProperty>
-  <owl:FunctionalProperty rdf:ID="hasLm">
-    <rdfs:domain rdf:resource="#lmInContext"/>
-    <rdfs:range rdf:resource="#lm"/>
+  <owl:DatatypeProperty rdf:ID="hasSpeedValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:domain rdf:resource="#speedOfMovment"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hastEndIndex">
+    <rdfs:domain rdf:resource="#indicator"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasSentenceNo">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:domain rdf:resource="#indicator"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasStartIndex">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:domain rdf:resource="#indicator"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="referLmInContext">
+    <rdfs:domain rdf:resource="#pathElement"/>
+    <rdfs:range rdf:resource="#lmInContext"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:ID="hasTr">
-    <rdfs:range rdf:resource="#tr"/>
+  <owl:FunctionalProperty rdf:ID="hasPathElementPosition">
+    <rdfs:domain rdf:resource="#pathElement"/>
+    <rdfs:range rdf:resource="#pathElementPosition"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="#spatialConfiguration"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:ID="hasFoR">
-    <rdfs:range rdf:resource="#FoR"/>
+  <owl:FunctionalProperty rdf:ID="hasPath">
+    <rdfs:domain rdf:resource="#dynamicSpatialConfiguration"/>
+    <rdfs:range rdf:resource="#path"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="#lmInContext"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:ID="hasV">
-    <rdfs:range rdf:resource="#v"/>
+  <owl:FunctionalProperty rdf:ID="hasM">
+    <rdfs:domain rdf:resource="#dynamicSpatialConfiguration"/>
+    <rdfs:range rdf:resource="#m"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="#spatialConfiguration"/>
-  </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:ID="area">
-    <rdfs:range rdf:resource="#areaNames"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="#lm"/>
-  </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:ID="col">
-    <rdfs:domain rdf:resource="#lm"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:range rdf:resource="#color"/>
-  </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:ID="size">
-    <rdfs:range rdf:resource="#sizeTypes"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="#lm"/>
   </owl:FunctionalProperty>
   <saulSpatial:color rdf:ID="orange"/>
   <saulSpatial:color rdf:ID="green"/>
   <saulSpatial:color rdf:ID="white"/>
   <saulSpatial:areaNames rdf:ID="top"/>
-  <saulSpatial:QT rdf:ID="directional"/>
   <saulSpatial:color rdf:ID="red"/>
+  <saulSpatial:QT rdf:ID="directional"/>
   <saulSpatial:QT rdf:ID="relativeQT"/>
   <saulSpatial:pathElementPosition rdf:ID="end"/>
   <saulSpatial:color rdf:ID="black"/>
@@ -356,6 +406,7 @@
   <saulSpatial:FoR rdf:ID="absolute"/>
   <saulSpatial:QT rdf:ID="quantitative"/>
   <saulSpatial:firstPerson rdf:ID="firstPersonAnon"/>
+  <saulSpatial:pathElementPosition rdf:ID="whole"/>
   <saulSpatial:pathElementPosition rdf:ID="begin"/>
   <saulSpatial:color rdf:ID="yellow"/>
   <saulSpatial:QT rdf:ID="DC"/>
@@ -363,7 +414,7 @@
   <saulSpatial:sizeTypes rdf:ID="small"/>
   <saulSpatial:areaNames rdf:ID="bottom"/>
   <saulSpatial:movmentVerb rdf:ID="move"/>
-  <saulSpatial:areaNames rdf:ID="middle"/>
+  <saulSpatial:pathElementPosition rdf:ID="middle"/>
   <saulSpatial:FoR rdf:ID="relative"/>
   <saulSpatial:thirdPerson rdf:ID="thirdPersonAnon"/>
 </rdf:RDF>

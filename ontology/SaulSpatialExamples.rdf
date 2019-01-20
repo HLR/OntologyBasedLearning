@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:saulSpatial="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:saulSpatialExamples="http://ontology.ihmc.us/Spatial/SaulSpatialExamples.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://ontology.ihmc.us/Spatial/SaulSpatialExamples.owl" > 
+  <rdf:Description rdf:about="#e4">
+    <saulSpatial:hasSp rdf:resource="#e4_span"/>
+    <rdfs:label>orangecube</rdfs:label>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#tr"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockPathBegin">
+    <saulSpatial:hasSp rdf:resource="#redBlockPathBegin_span"/>
+    <saulSpatial:hasPathElementPosition rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#begin"/>
+    <saulSpatial:referLmInContext rdf:resource="#e2InRedBlockConfiguration"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#pathElement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockMovment">
+    <saulSpatial:verb rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#move"/>
+    <saulSpatial:manner rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#diagonally"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#m"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e2_span">
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#span"/>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the top of the blue column</saulSpatial:hasText>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockPathEnd_span">
+    <saulSpatial:hastEndIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</saulSpatial:hastEndIndex>
+    <saulSpatial:hasStartIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</saulSpatial:hasStartIndex>
+    <saulSpatial:hasSentenceNo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</saulSpatial:hasSentenceNo>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to</saulSpatial:hasText>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#sp"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e1">
+    <saulSpatial:hasSp rdf:resource="#e1_span"/>
+    <saulSpatial:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#red"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">largeRedBlock</rdfs:label>
+    <saulSpatial:size rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#large"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#tr"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#block"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockPath">
+    <saulSpatial:hasPathElement rdf:resource="#redBlockPathBegin"/>
+    <saulSpatial:hasPathElement rdf:resource="#redBlockPathEnd"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#path"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e3_span">
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#span"/>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the top of the yellow column</saulSpatial:hasText>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e1_span">
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#span"/>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the large red block</saulSpatial:hasText>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e3">
+    <saulSpatial:hasSp rdf:resource="#e3_span"/>
+    <saulSpatial:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#yellow"/>
+    <rdfs:label>topYellowColumn</rdfs:label>
+    <saulSpatial:area rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#top"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#column"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#orangeCubeConfiguration">
+    <saulSpatial:hasTr rdf:resource="#e4"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">which is 5 spaces from the orange cube.</rdfs:comment>
+    <saulSpatial:hasLmInContext rdf:resource="#e4InOrnageCubeConfiguration"/>
+    <saulSpatial:hasV rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#firstPersonAnon"/>
+    <saulSpatial:hasLm rdf:resource="#e4"/>
+    <saulSpatial:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#quantitative"/>
+    <saulSpatial:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#distal"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#spatialConfiguration"/>
+    <saulSpatial:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#topological"/>
+    <saulSpatial:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#DC"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e2">
+    <saulSpatial:hasSp rdf:resource="#e2_span"/>
+    <rdfs:label>topBlueColumn</rdfs:label>
+    <saulSpatial:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#red"/>
+    <saulSpatial:area rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#top"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#column"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e3InRedBlockConfiguration">
+    <saulSpatial:hasSp rdf:resource="#redBlockPathEnd_span"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#lmInContext"/>
+    <saulSpatial:hasLm rdf:resource="#e3"/>
+    <saulSpatial:hasFoR rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#relative"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e2InRedBlockConfiguration">
+    <saulSpatial:hasSp rdf:resource="#redBlockPathBegin_span"/>
+    <saulSpatial:hasFoR rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#relative"/>
+    <saulSpatial:hasLm rdf:resource="#e2"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#lmInContext"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockPathBegin_span">
+    <saulSpatial:hastEndIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</saulSpatial:hastEndIndex>
+    <saulSpatial:hasStartIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">37</saulSpatial:hasStartIndex>
+    <saulSpatial:hasSentenceNo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</saulSpatial:hasSentenceNo>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">from</saulSpatial:hasText>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#sp"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e4InOrnageCubeConfiguration">
+    <saulSpatial:hasSp rdf:resource="#orangeCubeConfiguration_span"/>
+    <saulSpatial:hasFoR rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#relative"/>
+    <saulSpatial:hasLm rdf:resource="#e3"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#lmInContext"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockPathEnd">
+    <saulSpatial:referLmInContext rdf:resource="#e3InRedBlockConfiguration"/>
+    <saulSpatial:hasPathElementPosition rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#end"/>
+    <saulSpatial:hasSp rdf:resource="#redBlockPathEnd_span"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#pathElement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#e4_span">
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#span"/>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the orange cube</saulSpatial:hasText>
+  </rdf:Description>
+  <rdf:Description rdf:about="#orangeCubeConfiguration_span">
+    <saulSpatial:hastEndIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">123</saulSpatial:hastEndIndex>
+    <saulSpatial:hasStartIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">111</saulSpatial:hasStartIndex>
+    <saulSpatial:hasSentenceNo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</saulSpatial:hasSentenceNo>
+    <saulSpatial:hasText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5 spaces from</saulSpatial:hasText>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#sp"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <owl:imports rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This ontology contains examples of Saul Spatial Configuration definitions using Saul spatial ontology concepts.
+     
+     Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#redBlockConfiguration">
+    <saulSpatial:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#directional"/>
+    <saulSpatial:hasLmInContext rdf:resource="#e3InRedBlockConfiguration"/>
+    <saulSpatial:hasM rdf:resource="#redBlockMovment"/>
+    <saulSpatial:hasV rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#firstPersonAnon"/>
+    <saulSpatial:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#relativeQT"/>
+    <saulSpatial:hasLmInContext rdf:resource="#e2InRedBlockConfiguration"/>
+    <saulSpatial:hasPath rdf:resource="#redBlockPath"/>
+    <rdfs:comment>Move the large red block diagonally from the top of the blue column to the top of the yellow column</rdfs:comment>
+    <saulSpatial:hasTr rdf:resource="#e1"/>
+    <rdf:type rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatial.owl#dynamicSpatialConfiguration"/>
+  </rdf:Description>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->

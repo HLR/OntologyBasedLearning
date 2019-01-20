@@ -6,4 +6,3 @@ myOnto.load()
 
 print(list(myOnto.classes()))
 print(list(myOnto.object_properties()))
-

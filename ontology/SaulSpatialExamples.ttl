@@ -1,0 +1,153 @@
+# baseURI: http://ontology.ihmc.us/Spatial/SaulSpatialExamples.owl
+# imports: http://ontology.ihmc.us/Spatial/SaulSpatial.owl
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saulSpatial:  <http://ontology.ihmc.us/Spatial/SaulSpatial.owl#> .
+@prefix saulSpatialExamples:  <http://ontology.ihmc.us/Spatial/SaulSpatialExamples.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/Spatial/SaulSpatialExamples.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment """This ontology contains examples of Saul Spatial Configuration definitions using Saul spatial ontology concepts.
+     
+     Created by Andrzej Uszok (auszok@ihmc.us)."""^^xsd:string ;
+      owl:imports <http://ontology.ihmc.us/Spatial/SaulSpatial.owl> .
+
+saulSpatialExamples:e1
+      rdf:type saulSpatial:block , saulSpatial:tr ;
+      rdfs:label "largeRedBlock"^^xsd:string ;
+      saulSpatial:col saulSpatial:red ;
+      saulSpatial:hasSp saulSpatialExamples:e1_span ;
+      saulSpatial:size saulSpatial:large .
+
+saulSpatialExamples:e1_span
+      rdf:type saulSpatial:span ;
+      saulSpatial:hasText "the large red block"^^xsd:string .
+
+saulSpatialExamples:e2
+      rdf:type saulSpatial:column ;
+      rdfs:label "topBlueColumn" ;
+      saulSpatial:area saulSpatial:top ;
+      saulSpatial:col saulSpatial:red ;
+      saulSpatial:hasSp saulSpatialExamples:e2_span .
+
+saulSpatialExamples:e2InRedBlockConfiguration
+      rdf:type saulSpatial:lmInContext ;
+      saulSpatial:hasFoR saulSpatial:relative ;
+      saulSpatial:hasLm saulSpatialExamples:e2 ;
+      saulSpatial:hasSp saulSpatialExamples:redBlockPathBegin_span .
+
+saulSpatialExamples:e2_span
+      rdf:type saulSpatial:span ;
+      saulSpatial:hasText "the top of the blue column"^^xsd:string .
+
+saulSpatialExamples:e3
+      rdf:type saulSpatial:column ;
+      rdfs:label "topYellowColumn" ;
+      saulSpatial:area saulSpatial:top ;
+      saulSpatial:col saulSpatial:yellow ;
+      saulSpatial:hasSp saulSpatialExamples:e3_span .
+
+saulSpatialExamples:e3InRedBlockConfiguration
+      rdf:type saulSpatial:lmInContext ;
+      saulSpatial:hasFoR saulSpatial:relative ;
+      saulSpatial:hasLm saulSpatialExamples:e3 ;
+      saulSpatial:hasSp saulSpatialExamples:redBlockPathEnd_span .
+
+saulSpatialExamples:e3_span
+      rdf:type saulSpatial:span ;
+      saulSpatial:hasText "the top of the yellow column"^^xsd:string .
+
+saulSpatialExamples:e4
+      rdf:type saulSpatial:tr ;
+      rdfs:label "orangecube" ;
+      saulSpatial:hasSp saulSpatialExamples:e4_span .
+
+saulSpatialExamples:e4InOrnageCubeConfiguration
+      rdf:type saulSpatial:lmInContext ;
+      saulSpatial:hasFoR saulSpatial:relative ;
+      saulSpatial:hasLm saulSpatialExamples:e3 ;
+      saulSpatial:hasSp saulSpatialExamples:orangeCubeConfiguration_span .
+
+saulSpatialExamples:e4_span
+      rdf:type saulSpatial:span ;
+      saulSpatial:hasText "the orange cube"^^xsd:string .
+
+saulSpatialExamples:orangeCubeConfiguration
+      rdf:type saulSpatial:spatialConfiguration ;
+      rdfs:comment "which is 5 spaces from the orange cube."^^xsd:string ;
+      saulSpatial:hasLm saulSpatialExamples:e4 ;
+      saulSpatial:hasLmInContext
+              saulSpatialExamples:e4InOrnageCubeConfiguration ;
+      saulSpatial:hasQT saulSpatial:DC , saulSpatial:distal , saulSpatial:quantitative , saulSpatial:topological ;
+      saulSpatial:hasTr saulSpatialExamples:e4 ;
+      saulSpatial:hasV saulSpatial:firstPersonAnon .
+
+saulSpatialExamples:orangeCubeConfiguration_span
+      rdf:type saulSpatial:sp ;
+      saulSpatial:hasSentenceNo
+              1 ;
+      saulSpatial:hasStartIndex
+              111 ;
+      saulSpatial:hasText "5 spaces from"^^xsd:string ;
+      saulSpatial:hastEndIndex
+              123 .
+
+saulSpatialExamples:redBlockConfiguration
+      rdf:type saulSpatial:dynamicSpatialConfiguration ;
+      rdfs:comment "Move the large red block diagonally from the top of the blue column to the top of the yellow column" ;
+      saulSpatial:hasLmInContext
+              saulSpatialExamples:e2InRedBlockConfiguration , saulSpatialExamples:e3InRedBlockConfiguration ;
+      saulSpatial:hasM saulSpatialExamples:redBlockMovment ;
+      saulSpatial:hasPath saulSpatialExamples:redBlockPath ;
+      saulSpatial:hasQT saulSpatial:directional , saulSpatial:relativeQT ;
+      saulSpatial:hasTr saulSpatialExamples:e1 ;
+      saulSpatial:hasV saulSpatial:firstPersonAnon .
+
+saulSpatialExamples:redBlockMovment
+      rdf:type saulSpatial:m ;
+      saulSpatial:manner saulSpatial:diagonally ;
+      saulSpatial:verb saulSpatial:move .
+
+saulSpatialExamples:redBlockPath
+      rdf:type saulSpatial:path ;
+      saulSpatial:hasPathElement
+              saulSpatialExamples:redBlockPathBegin , saulSpatialExamples:redBlockPathEnd .
+
+saulSpatialExamples:redBlockPathBegin
+      rdf:type saulSpatial:pathElement ;
+      saulSpatial:hasPathElementPosition
+              saulSpatial:begin ;
+      saulSpatial:hasSp saulSpatialExamples:redBlockPathBegin_span ;
+      saulSpatial:referLmInContext
+              saulSpatialExamples:e2InRedBlockConfiguration .
+
+saulSpatialExamples:redBlockPathBegin_span
+      rdf:type saulSpatial:sp ;
+      saulSpatial:hasSentenceNo
+              1 ;
+      saulSpatial:hasStartIndex
+              37 ;
+      saulSpatial:hasText "from"^^xsd:string ;
+      saulSpatial:hastEndIndex
+              40 .
+
+saulSpatialExamples:redBlockPathEnd
+      rdf:type saulSpatial:pathElement ;
+      saulSpatial:hasPathElementPosition
+              saulSpatial:end ;
+      saulSpatial:hasSp saulSpatialExamples:redBlockPathEnd_span ;
+      saulSpatial:referLmInContext
+              saulSpatialExamples:e3InRedBlockConfiguration .
+
+saulSpatialExamples:redBlockPathEnd_span
+      rdf:type saulSpatial:sp ;
+      saulSpatial:hasSentenceNo
+              1 ;
+      saulSpatial:hasStartIndex
+              69 ;
+      saulSpatial:hasText "to"^^xsd:string ;
+      saulSpatial:hastEndIndex
+              71 .
