@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:saulSpatialRelations="http://ontology.ihmc.us/Spatial/SaulSpatialRelations.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://ontology.ihmc.us/Spatial/SaulSpatialRelations.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This ontology contains types of Saul spatial concepts. Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+  </owl:Ontology>
+  <rdfs:Class rdf:ID="landmark">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:ID="trajector"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >These are the reference object for describing the location of the trajectors.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="spatialIndicator">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >These are language triggers indicating the existence of spatial information in a sentence.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="#trajector">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >These are the entities whose location are described.</rdfs:comment>
+  </rdfs:Class>
+  <owl:ObjectProperty rdf:ID="ec">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="dr"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >externallyConnected</rdfs:label>
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="po"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="tnpp">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="pp"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nonTangentialProperPart</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isBelow">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="direction"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="ntppi">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="ppi"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nonTangentialProperPartInverse</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#po">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="c"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >partiallyOverlapping</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="region">
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:ID="spatiaRelation"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isAtBack">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#direction"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="eq">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#pp"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >equal</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="dc">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#dr"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disconnected</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#dr">
+    <rdfs:subPropertyOf rdf:resource="#region"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >discrete</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="tppi">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#ppi"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tangentialProperPartInverse</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isToLeft">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#direction"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#c">
+    <rdfs:subPropertyOf rdf:resource="#region"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >connected</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#ppi">
+    <rdfs:subPropertyOf rdf:resource="#c"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >properPartInverse</rdfs:label>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="#pp"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="distance">
+    <rdfs:domain rdf:resource="#trajector"/>
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:about="#spatiaRelation"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="itAtFront">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#direction"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isAbove">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#direction"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#pp">
+    <rdfs:subPropertyOf rdf:resource="#c"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >properPart</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#direction">
+    <rdfs:range rdf:resource="#trajector"/>
+    <rdfs:domain rdf:resource="#trajector"/>
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:about="#spatiaRelation"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isToRight">
+    <rdfs:subPropertyOf rdf:resource="#direction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="tpp">
+    <rdfs:subPropertyOf rdf:resource="#pp"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tangentialProperPart</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="#spatiaRelation">
+    <rdfs:domain rdf:resource="#trajector"/>
+  </owl:DatatypeProperty>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->
