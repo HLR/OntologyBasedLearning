@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:saulSpatialConfiguration="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:saulSpatialConfiguration2="http://ontology.ihmc.us/Spatial/data/SpatialConfiguration2.owl#"
+  xml:base="http://ontology.ihmc.us/Spatial/data/SpatialConfiguration2.owl">
+  
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This ontology contains Configuration2 examples of Saul Spatial Configuration definition using Saul Spatial ontology concepts.
+     
+     
+     Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl"/>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl"/>
+  </owl:Ontology>
+
+  <saulSpatialConfiguration:spatialConfiguration rdf:ID="Configuration2">
+
+    <saulSpatialConfiguration:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#DC"/>
+
+    <saulSpatialConfiguration:hasTr>
+      <saulSpatialConfiguration:tr rdf:ID="t2">
+        <saulSpatialConfiguration:hasSpatialEntity rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e3"/>
+      </saulSpatialConfiguration:tr>
+    </saulSpatialConfiguration:hasTr>
+
+    <saulSpatialConfiguration:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#quantitative"/>
+    <saulSpatialConfiguration:hasV rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#firstPersonAnon"/>
+
+    <saulSpatialConfiguration:hasLm>
+      <saulSpatialConfiguration:lm rdf:ID="l3">
+        <saulSpatialConfiguration:hasFoR rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#relative"/>
+        <saulSpatialConfiguration:hasSpatialEntity rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e4" />
+      </saulSpatialConfiguration:lm>
+    </saulSpatialConfiguration:hasLm>
+
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >which is 5 spaces from the orange cube.</rdfs:comment>
+
+    <saulSpatialConfiguration:hasSp>
+      <saulSpatialConfiguration:sp rdf:ID="s3">
+        <saulSpatialConfiguration:hasSpan>
+          <saulSpatialConfiguration:span rdf:ID="s3_span">
+            <saulSpatialConfiguration:hastEndTextIndex rdf:datatype=
+            "http://www.w3.org/2001/XMLSchema#integer">122</saulSpatialConfiguration:hastEndTextIndex>
+            <saulSpatialConfiguration:hasSubText rdf:datatype=
+            "http://www.w3.org/2001/XMLSchema#string">5 spaces from</saulSpatialConfiguration:hasSubText>
+            <saulSpatialConfiguration:hasSentenceNo rdf:datatype=
+            "http://www.w3.org/2001/XMLSchema#integer">1</saulSpatialConfiguration:hasSentenceNo>
+            <saulSpatialConfiguration:hasStartTextIndex rdf:datatype=
+            "http://www.w3.org/2001/XMLSchema#integer">110</saulSpatialConfiguration:hasStartTextIndex>
+          </saulSpatialConfiguration:span>
+        </saulSpatialConfiguration:hasSpan>
+      </saulSpatialConfiguration:sp>
+    </saulSpatialConfiguration:hasSp>
+
+    <saulSpatialConfiguration:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#distal"/>
+    <saulSpatialConfiguration:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#topological"/>
+
+  </saulSpatialConfiguration:spatialConfiguration>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->

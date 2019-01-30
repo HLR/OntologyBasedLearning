@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:saulSpatialConfiguration="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#"
+    xmlns:saulSpatialConfiguration1="http://ontology.ihmc.us/Spatial/data/SpatialConfiguration1.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://ontology.ihmc.us/Spatial/data/SpatialConfiguration1.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This ontology contains Configuration1 example of Saul Spatial Configuration definition using Saul Spatial ontology concepts.
+     
+     Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl"/>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl"/>
+  </owl:Ontology>
+
+  <saulSpatialConfiguration:span rdf:ID="m1_span">
+    <saulSpatialConfiguration:hasSentenceNo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >1</saulSpatialConfiguration:hasSentenceNo>
+    <saulSpatialConfiguration:hasSubText rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Move</saulSpatialConfiguration:hasSubText>
+    <saulSpatialConfiguration:hasStartTextIndex rdf:datatype=
+    "http://www.w3.org/2001/XMLSchema#integer">0</saulSpatialConfiguration:hasStartTextIndex>
+    <saulSpatialConfiguration:hastEndTextIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >3</saulSpatialConfiguration:hastEndTextIndex>
+  </saulSpatialConfiguration:span>
+  <saulSpatialConfiguration:dynamicSpatialConfiguration rdf:ID="Configuration1">
+    <saulSpatialConfiguration:hasLm>
+      <saulSpatialConfiguration:lm rdf:ID="l2">
+        <saulSpatialConfiguration:hasFoR rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#relative"/>
+        <saulSpatialConfiguration:hasSpatialEntity rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e3"/>
+      </saulSpatialConfiguration:lm>
+    </saulSpatialConfiguration:hasLm>
+    <saulSpatialConfiguration:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#directional"/>
+    <saulSpatialConfiguration:hasQT rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#relativeQT"/>
+    <rdfs:comment>Move the large red block diagonally from the top of the blue column to the top of the yellow column</rdfs:comment>
+    <saulSpatialConfiguration:hasPath>
+      <saulSpatialConfiguration:path rdf:ID="m1Path">
+        <saulSpatialConfiguration:hasPathElement>
+          <saulSpatialConfiguration:pathElement rdf:ID="m1PathElement1">
+            <saulSpatialConfiguration:hasLm>
+              <saulSpatialConfiguration:lm rdf:ID="l1">
+                <saulSpatialConfiguration:hasFoR rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#relative"/>
+                <saulSpatialConfiguration:hasSpatialEntity rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e2"/>
+              </saulSpatialConfiguration:lm>
+            </saulSpatialConfiguration:hasLm>
+            <saulSpatialConfiguration:hasSp>
+              <saulSpatialConfiguration:sp rdf:ID="s1">
+                <saulSpatialConfiguration:hasSpan>
+                  <saulSpatialConfiguration:span rdf:ID="s1_span">
+                    <saulSpatialConfiguration:hastEndTextIndex
+                     rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >39</saulSpatialConfiguration:hastEndTextIndex>
+                    <saulSpatialConfiguration:hasSubText rdf:datatype=
+                    "http://www.w3.org/2001/XMLSchema#string"
+                    >from</saulSpatialConfiguration:hasSubText>
+                    <saulSpatialConfiguration:hasStartTextIndex
+                     rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >36</saulSpatialConfiguration:hasStartTextIndex>
+                    <saulSpatialConfiguration:hasSentenceNo rdf:datatype=
+                    "http://www.w3.org/2001/XMLSchema#integer"
+                    >1</saulSpatialConfiguration:hasSentenceNo>
+                  </saulSpatialConfiguration:span>
+                </saulSpatialConfiguration:hasSpan>
+              </saulSpatialConfiguration:sp>
+            </saulSpatialConfiguration:hasSp>
+            <saulSpatialConfiguration:hasPathElementPosition rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#begin"/>
+          </saulSpatialConfiguration:pathElement>
+        </saulSpatialConfiguration:hasPathElement>
+        <saulSpatialConfiguration:hasPathElement>
+          <saulSpatialConfiguration:pathElement rdf:ID="m1PathElement2">
+            <saulSpatialConfiguration:hasLm rdf:resource="#l2"/>
+            <saulSpatialConfiguration:hasPathElementPosition rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#end"/>
+            <saulSpatialConfiguration:hasSp>
+              <saulSpatialConfiguration:sp rdf:ID="s2">
+                <saulSpatialConfiguration:hasSpan>
+                  <saulSpatialConfiguration:span rdf:ID="s2_span">
+                    <saulSpatialConfiguration:hastEndTextIndex
+                     rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >69</saulSpatialConfiguration:hastEndTextIndex>
+                    <saulSpatialConfiguration:hasSentenceNo rdf:datatype=
+                    "http://www.w3.org/2001/XMLSchema#integer"
+                    >1</saulSpatialConfiguration:hasSentenceNo>
+                    <saulSpatialConfiguration:hasStartTextIndex
+                     rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                    >68</saulSpatialConfiguration:hasStartTextIndex>
+                    <saulSpatialConfiguration:hasSubText rdf:datatype=
+                    "http://www.w3.org/2001/XMLSchema#string"
+                    >to</saulSpatialConfiguration:hasSubText>
+                  </saulSpatialConfiguration:span>
+                </saulSpatialConfiguration:hasSpan>
+              </saulSpatialConfiguration:sp>
+            </saulSpatialConfiguration:hasSp>
+          </saulSpatialConfiguration:pathElement>
+        </saulSpatialConfiguration:hasPathElement>
+      </saulSpatialConfiguration:path>
+    </saulSpatialConfiguration:hasPath>
+    <saulSpatialConfiguration:hasLm rdf:resource="#l1"/>
+    <saulSpatialConfiguration:hasSp rdf:resource="#s1"/>
+    <saulSpatialConfiguration:hasM>
+      <saulSpatialConfiguration:m rdf:ID="m1">
+        <saulSpatialConfiguration:manner rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#diagonally"/>
+      </saulSpatialConfiguration:m>
+    </saulSpatialConfiguration:hasM>
+    <saulSpatialConfiguration:hasSp rdf:resource="#s2"/>
+    <saulSpatialConfiguration:hasV rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#firstPersonAnon"/>
+    <saulSpatialConfiguration:hasTr>
+      <saulSpatialConfiguration:tr rdf:ID="t1">
+        <saulSpatialConfiguration:hasSpatialEntity rdf:resource="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e1"/>
+      </saulSpatialConfiguration:tr>
+    </saulSpatialConfiguration:hasTr>
+  </saulSpatialConfiguration:dynamicSpatialConfiguration>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->

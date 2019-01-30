@@ -1,0 +1,125 @@
+# baseURI: http://ontology.ihmc.us/Spatial/data/SpatialConfiguration1.owl
+# imports: http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl
+# imports: http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saulSpatialConfiguration:  <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#> .
+@prefix saulSpatialConfiguration1:  <http://ontology.ihmc.us/Spatial/data/SpatialConfiguration1.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/Spatial/data/SpatialConfiguration1.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment """This ontology contains Configuration1 example of Saul Spatial Configuration definition using Saul Spatial ontology concepts.
+     
+     Created by Andrzej Uszok (auszok@ihmc.us)."""^^xsd:string ;
+      owl:imports <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl> , <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl> .
+
+saulSpatialConfiguration1:Configuration1
+      rdf:type saulSpatialConfiguration:dynamicSpatialConfiguration ;
+      rdfs:comment "Move the large red block diagonally from the top of the blue column to the top of the yellow column" ;
+      saulSpatialConfiguration:hasLm
+              saulSpatialConfiguration1:l1 , saulSpatialConfiguration1:l2 ;
+      saulSpatialConfiguration:hasM
+              saulSpatialConfiguration1:m1 ;
+      saulSpatialConfiguration:hasPath
+              saulSpatialConfiguration1:m1Path ;
+      saulSpatialConfiguration:hasQT
+              saulSpatialConfiguration:directional , saulSpatialConfiguration:relativeQT ;
+      saulSpatialConfiguration:hasSp
+              saulSpatialConfiguration1:s1 , saulSpatialConfiguration1:s2 ;
+      saulSpatialConfiguration:hasTr
+              saulSpatialConfiguration1:t1 ;
+      saulSpatialConfiguration:hasV
+              saulSpatialConfiguration:firstPersonAnon .
+
+saulSpatialConfiguration1:l1
+      rdf:type saulSpatialConfiguration:lm ;
+      saulSpatialConfiguration:hasFoR
+              saulSpatialConfiguration:relative ;
+      saulSpatialConfiguration:hasSpatialEntity
+              <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e2> .
+
+saulSpatialConfiguration1:l2
+      rdf:type saulSpatialConfiguration:lm ;
+      saulSpatialConfiguration:hasFoR
+              saulSpatialConfiguration:relative ;
+      saulSpatialConfiguration:hasSpatialEntity
+              <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e3> .
+
+saulSpatialConfiguration1:m1
+      rdf:type saulSpatialConfiguration:m ;
+      saulSpatialConfiguration:manner
+              saulSpatialConfiguration:diagonally .
+
+saulSpatialConfiguration1:m1Path
+      rdf:type saulSpatialConfiguration:path ;
+      saulSpatialConfiguration:hasPathElement
+              saulSpatialConfiguration1:m1PathElement1 , saulSpatialConfiguration1:m1PathElement2 .
+
+saulSpatialConfiguration1:m1PathElement1
+      rdf:type saulSpatialConfiguration:pathElement ;
+      saulSpatialConfiguration:hasLm
+              saulSpatialConfiguration1:l1 ;
+      saulSpatialConfiguration:hasPathElementPosition
+              saulSpatialConfiguration:begin ;
+      saulSpatialConfiguration:hasSp
+              saulSpatialConfiguration1:s1 .
+
+saulSpatialConfiguration1:m1PathElement2
+      rdf:type saulSpatialConfiguration:pathElement ;
+      saulSpatialConfiguration:hasLm
+              saulSpatialConfiguration1:l2 ;
+      saulSpatialConfiguration:hasPathElementPosition
+              saulSpatialConfiguration:end ;
+      saulSpatialConfiguration:hasSp
+              saulSpatialConfiguration1:s2 .
+
+saulSpatialConfiguration1:m1_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              0 ;
+      saulSpatialConfiguration:hasSubText
+              "Move"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              3 .
+
+saulSpatialConfiguration1:s1
+      rdf:type saulSpatialConfiguration:sp ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialConfiguration1:s1_span .
+
+saulSpatialConfiguration1:s1_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              36 ;
+      saulSpatialConfiguration:hasSubText
+              "from"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              39 .
+
+saulSpatialConfiguration1:s2
+      rdf:type saulSpatialConfiguration:sp ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialConfiguration1:s2_span .
+
+saulSpatialConfiguration1:s2_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              68 ;
+      saulSpatialConfiguration:hasSubText
+              "to"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              69 .
+
+saulSpatialConfiguration1:t1
+      rdf:type saulSpatialConfiguration:tr ;
+      saulSpatialConfiguration:hasSpatialEntity
+              <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e1> .

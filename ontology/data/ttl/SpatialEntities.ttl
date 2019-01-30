@@ -1,0 +1,106 @@
+# baseURI: http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl
+# imports: http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saulSpatialConfiguration:  <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#> .
+@prefix saulSpatialEntities:  <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment """This ontology contains definitions of spatial entities using Saul Spatial ontology concepts.
+     
+     Created by Andrzej Uszok (auszok@ihmc.us)."""^^xsd:string ;
+      owl:imports <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl> .
+
+saulSpatialEntities:e1
+      rdf:type saulSpatialConfiguration:spatialEntity ;
+      rdfs:label "large red block"^^xsd:string ;
+      saulSpatialConfiguration:col
+              saulSpatialConfiguration:red ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialEntities:e1_span ;
+      saulSpatialConfiguration:shape
+              saulSpatialConfiguration:block ;
+      saulSpatialConfiguration:size
+              saulSpatialConfiguration:large .
+
+saulSpatialEntities:e1_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              5 ;
+      saulSpatialConfiguration:hasSubText
+              "the large red block"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              23 .
+
+saulSpatialEntities:e2
+      rdf:type saulSpatialConfiguration:spatialEntity ;
+      rdfs:label "top bue column"^^xsd:string ;
+      saulSpatialConfiguration:area
+              saulSpatialConfiguration:top ;
+      saulSpatialConfiguration:col
+              saulSpatialConfiguration:red ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialEntities:e2_span ;
+      saulSpatialConfiguration:shape
+              saulSpatialConfiguration:column .
+
+saulSpatialEntities:e2_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              41 ;
+      saulSpatialConfiguration:hasSubText
+              "the top of the blue column"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              66 .
+
+saulSpatialEntities:e3
+      rdf:type saulSpatialConfiguration:spatialEntity ;
+      rdfs:label "top yellow column"^^xsd:string ;
+      saulSpatialConfiguration:area
+              saulSpatialConfiguration:top ;
+      saulSpatialConfiguration:col
+              saulSpatialConfiguration:yellow ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialEntities:e3_span ;
+      saulSpatialConfiguration:shape
+              saulSpatialConfiguration:column .
+
+saulSpatialEntities:e3_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              71 ;
+      saulSpatialConfiguration:hasSubText
+              "the top of the yellow column"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              98 .
+
+saulSpatialEntities:e4
+      rdf:type saulSpatialConfiguration:spatialEntity ;
+      rdfs:label "orange cube"^^xsd:string ;
+      saulSpatialConfiguration:col
+              saulSpatialConfiguration:orange ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialEntities:e4_span ;
+      saulSpatialConfiguration:shape
+              saulSpatialConfiguration:cube .
+
+saulSpatialEntities:e4_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              124 ;
+      saulSpatialConfiguration:hasSubText
+              "the orange cube"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              138 .

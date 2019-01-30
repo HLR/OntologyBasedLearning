@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:saulSpatialConfiguration="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#"
+    xmlns:saulSpatialEntities ="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This ontology contains definitions of spatial entities using Saul Spatial ontology concepts.
+     
+     Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl"/>
+  </owl:Ontology>
+
+  <saulSpatialConfiguration:spatialEntity rdf:ID="e3">
+            <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >top yellow column</rdfs:label>
+            <saulSpatialConfiguration:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#yellow"/>
+            <saulSpatialConfiguration:area rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#top"/>
+            <saulSpatialConfiguration:shape rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#column"/>
+            <saulSpatialConfiguration:hasSpan>
+              <saulSpatialConfiguration:span rdf:ID="e3_span">
+                <saulSpatialConfiguration:hastEndTextIndex rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">98</saulSpatialConfiguration:hastEndTextIndex>
+                <saulSpatialConfiguration:hasStartTextIndex rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">71</saulSpatialConfiguration:hasStartTextIndex>
+                <saulSpatialConfiguration:hasSentenceNo rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">1</saulSpatialConfiguration:hasSentenceNo>
+                <saulSpatialConfiguration:hasSubText rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#string">the top of the yellow column</saulSpatialConfiguration:hasSubText>
+              </saulSpatialConfiguration:span>
+            </saulSpatialConfiguration:hasSpan>
+          </saulSpatialConfiguration:spatialEntity>
+
+  <saulSpatialConfiguration:spatialEntity rdf:ID="e2">
+                    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >top bue column</rdfs:label>
+                    <saulSpatialConfiguration:area rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#top"/>
+                    <saulSpatialConfiguration:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#red"/>
+                    <saulSpatialConfiguration:shape rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#column"/>
+                    <saulSpatialConfiguration:hasSpan>
+                      <saulSpatialConfiguration:span rdf:ID="e2_span">
+                        <saulSpatialConfiguration:hastEndTextIndex
+                         rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                        >66</saulSpatialConfiguration:hastEndTextIndex>
+                        <saulSpatialConfiguration:hasStartTextIndex
+                         rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                        >41</saulSpatialConfiguration:hasStartTextIndex>
+                        <saulSpatialConfiguration:hasSentenceNo
+                         rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+                        >1</saulSpatialConfiguration:hasSentenceNo>
+                        <saulSpatialConfiguration:hasSubText rdf:datatype=
+                        "http://www.w3.org/2001/XMLSchema#string"
+                        >the top of the blue column</saulSpatialConfiguration:hasSubText>
+                      </saulSpatialConfiguration:span>
+                    </saulSpatialConfiguration:hasSpan>
+                  </saulSpatialConfiguration:spatialEntity>
+
+
+  <saulSpatialConfiguration:spatialEntity rdf:ID="e1">
+            <saulSpatialConfiguration:hasSpan>
+              <saulSpatialConfiguration:span rdf:ID="e1_span">
+                <saulSpatialConfiguration:hastEndTextIndex rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">23</saulSpatialConfiguration:hastEndTextIndex>
+                <saulSpatialConfiguration:hasStartTextIndex rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">5</saulSpatialConfiguration:hasStartTextIndex>
+                <saulSpatialConfiguration:hasSentenceNo rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">1</saulSpatialConfiguration:hasSentenceNo>
+                <saulSpatialConfiguration:hasSubText rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#string">the large red block</saulSpatialConfiguration:hasSubText>
+              </saulSpatialConfiguration:span>
+            </saulSpatialConfiguration:hasSpan>
+            <saulSpatialConfiguration:size rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#large"/>
+            <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >large red block</rdfs:label>
+            <saulSpatialConfiguration:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#red"/>
+            <saulSpatialConfiguration:shape rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#block"/>
+          </saulSpatialConfiguration:spatialEntity>
+
+  <saulSpatialConfiguration:spatialEntity rdf:ID="e4">
+            <saulSpatialConfiguration:shape rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#cube"/>
+            <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >orange cube</rdfs:label>
+            <saulSpatialConfiguration:col rdf:resource="http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#orange"/>
+            <saulSpatialConfiguration:hasSpan>
+              <saulSpatialConfiguration:span rdf:ID="e4_span">
+                <saulSpatialConfiguration:hastEndTextIndex rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">138</saulSpatialConfiguration:hastEndTextIndex>
+                <saulSpatialConfiguration:hasStartTextIndex rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">124</saulSpatialConfiguration:hasStartTextIndex>
+                <saulSpatialConfiguration:hasSentenceNo rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#integer">1</saulSpatialConfiguration:hasSentenceNo>
+                <saulSpatialConfiguration:hasSubText rdf:datatype=
+                "http://www.w3.org/2001/XMLSchema#string">the orange cube</saulSpatialConfiguration:hasSubText>
+              </saulSpatialConfiguration:span>
+            </saulSpatialConfiguration:hasSpan>
+          </saulSpatialConfiguration:spatialEntity>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->

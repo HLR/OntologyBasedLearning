@@ -1,0 +1,346 @@
+# baseURI: http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saulSpatialConfiguration:  <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment "This ontology contains Saul spatial concepts. Created by Andrzej Uszok (auszok@ihmc.us)."^^xsd:string .
+
+saulSpatialConfiguration:DC
+      rdf:type saulSpatialConfiguration:F-typeQT .
+
+saulSpatialConfiguration:F-typeQT
+      rdf:type owl:Class ;
+      rdfs:comment "General type of the QT."^^xsd:string ;
+      rdfs:subClassOf saulSpatialConfiguration:QT .
+
+saulSpatialConfiguration:FoR
+      rdf:type owl:Class ;
+      rdfs:comment "A type of the coordinate system to identify location of an object, can be intrinsic, relative or absolute."^^xsd:string ;
+      rdfs:label "frame-of-reference-type"^^xsd:string .
+
+saulSpatialConfiguration:G-typeQT
+      rdf:type owl:Class ;
+      rdfs:comment "Formal meaning of QT."^^xsd:string ;
+      rdfs:subClassOf saulSpatialConfiguration:QT .
+
+saulSpatialConfiguration:QT
+      rdf:type owl:Class ;
+      rdfs:comment "The qualitative - formal type of the relation between the tr and lm."^^xsd:string ;
+      rdfs:label "qualitative type"^^xsd:string .
+
+saulSpatialConfiguration:absolute
+      rdf:type saulSpatialConfiguration:FoR .
+
+saulSpatialConfiguration:area
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialEntity ;
+      rdfs:range saulSpatialConfiguration:areaName .
+
+saulSpatialConfiguration:areaName
+      rdf:type owl:Class ;
+      rdfs:comment "The indication of the spatial entity area."^^xsd:string .
+
+saulSpatialConfiguration:begin
+      rdf:type saulSpatialConfiguration:pathElementPosition .
+
+saulSpatialConfiguration:black
+      rdf:type saulSpatialConfiguration:color .
+
+saulSpatialConfiguration:block
+      rdf:type saulSpatialConfiguration:shapeTypes .
+
+saulSpatialConfiguration:bottom
+      rdf:type saulSpatialConfiguration:areaName .
+
+saulSpatialConfiguration:col
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialEntity ;
+      rdfs:range saulSpatialConfiguration:color .
+
+saulSpatialConfiguration:color
+      rdf:type owl:Class ;
+      rdfs:comment "The color of the spatial entity"^^xsd:string .
+
+saulSpatialConfiguration:column
+      rdf:type saulSpatialConfiguration:shapeTypes .
+
+saulSpatialConfiguration:cube
+      rdf:type saulSpatialConfiguration:shapeTypes .
+
+saulSpatialConfiguration:diagonally
+      rdf:type saulSpatialConfiguration:movmentManner .
+
+saulSpatialConfiguration:direction
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain
+              [ rdf:type owl:Class ;
+                owl:unionOf (saulSpatialConfiguration:m saulSpatialConfiguration:sp)
+              ] .
+
+saulSpatialConfiguration:directional
+      rdf:type saulSpatialConfiguration:G-typeQT .
+
+saulSpatialConfiguration:distal
+      rdf:type saulSpatialConfiguration:G-typeQT .
+
+saulSpatialConfiguration:distance
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:sp .
+
+saulSpatialConfiguration:dynamicSpatialConfiguration
+      rdf:type owl:Class ;
+      rdfs:comment "The spatial configuration of the situation discribied in the NL setance or its part including movment of trajector."^^xsd:string ;
+      rdfs:subClassOf saulSpatialConfiguration:spatialConfiguration .
+
+saulSpatialConfiguration:end
+      rdf:type saulSpatialConfiguration:pathElementPosition .
+
+saulSpatialConfiguration:firstPerson
+      rdf:type saulSpatialConfiguration:v .
+
+saulSpatialConfiguration:green
+      rdf:type saulSpatialConfiguration:color .
+
+saulSpatialConfiguration:hasFoR
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:lm ;
+      rdfs:range saulSpatialConfiguration:FoR .
+
+saulSpatialConfiguration:hasLm
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain
+              [ rdf:type owl:Class ;
+                owl:unionOf (saulSpatialConfiguration:spatialConfiguration saulSpatialConfiguration:pathElement)
+              ] ;
+      rdfs:range saulSpatialConfiguration:lm .
+
+saulSpatialConfiguration:hasM
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:dynamicSpatialConfiguration ;
+      rdfs:range saulSpatialConfiguration:m .
+
+saulSpatialConfiguration:hasPath
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:dynamicSpatialConfiguration ;
+      rdfs:range saulSpatialConfiguration:path .
+
+saulSpatialConfiguration:hasPathElement
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:path ;
+      rdfs:range saulSpatialConfiguration:pathElement .
+
+saulSpatialConfiguration:hasPathElementPosition
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:pathElement ;
+      rdfs:range saulSpatialConfiguration:pathElementPosition .
+
+saulSpatialConfiguration:hasQT
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialConfiguration ;
+      rdfs:range saulSpatialConfiguration:QT .
+
+saulSpatialConfiguration:hasSentenceNo
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain saulSpatialConfiguration:span ;
+      rdfs:range xsd:integer .
+
+saulSpatialConfiguration:hasSp
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain
+              [ rdf:type owl:Class ;
+                owl:unionOf (saulSpatialConfiguration:spatialConfiguration saulSpatialConfiguration:pathElement)
+              ] ;
+      rdfs:range saulSpatialConfiguration:sp .
+
+saulSpatialConfiguration:hasSpan
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain
+              [ rdf:type owl:Class ;
+                owl:unionOf (saulSpatialConfiguration:spatialEntity saulSpatialConfiguration:sp saulSpatialConfiguration:m)
+              ] ;
+      rdfs:range saulSpatialConfiguration:span .
+
+saulSpatialConfiguration:hasSpatialEntity
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialRole ;
+      rdfs:range saulSpatialConfiguration:spatialEntity .
+
+saulSpatialConfiguration:hasSpeedValue
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain saulSpatialConfiguration:speedOfMovment ;
+      rdfs:range xsd:float .
+
+saulSpatialConfiguration:hasStartTextIndex
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain saulSpatialConfiguration:span ;
+      rdfs:range xsd:integer .
+
+saulSpatialConfiguration:hasSubText
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain saulSpatialConfiguration:span ;
+      rdfs:range xsd:string .
+
+saulSpatialConfiguration:hasTr
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialConfiguration ;
+      rdfs:range saulSpatialConfiguration:tr .
+
+saulSpatialConfiguration:hasV
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialConfiguration ;
+      rdfs:range saulSpatialConfiguration:v .
+
+saulSpatialConfiguration:hastEndTextIndex
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain saulSpatialConfiguration:span ;
+      rdfs:range xsd:integer .
+
+saulSpatialConfiguration:intrinsic
+      rdf:type saulSpatialConfiguration:FoR .
+
+saulSpatialConfiguration:large
+      rdf:type saulSpatialConfiguration:sizeType .
+
+saulSpatialConfiguration:lm
+      rdf:type owl:Class ;
+      rdfs:comment "The reference object that describes the location of the tr or is a part of its path of motion."^^xsd:string ;
+      rdfs:label "landmark"^^xsd:string ;
+      rdfs:subClassOf saulSpatialConfiguration:spatialRole .
+
+saulSpatialConfiguration:m
+      rdf:type owl:Class ;
+      rdfs:comment "Spatial movement usually described by a motion verb."^^xsd:string ;
+      rdfs:label "motion indicator"^^xsd:string .
+
+saulSpatialConfiguration:manner
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:m ;
+      rdfs:range saulSpatialConfiguration:movmentManner .
+
+saulSpatialConfiguration:middle
+      rdf:type saulSpatialConfiguration:pathElementPosition .
+
+saulSpatialConfiguration:movmentManner
+      rdf:type owl:Class ;
+      rdfs:comment "The manner of movement."^^xsd:string .
+
+saulSpatialConfiguration:orange
+      rdf:type saulSpatialConfiguration:color .
+
+saulSpatialConfiguration:path
+      rdf:type owl:Class ;
+      rdfs:comment "The tr location can be described via a path of motion instead of a basic lm."^^xsd:string .
+
+saulSpatialConfiguration:pathElement
+      rdf:type owl:Class ;
+      rdfs:comment "The element of the path."^^xsd:string ;
+      rdfs:subClassOf saulSpatialConfiguration:spatialRole .
+
+saulSpatialConfiguration:pathElementPosition
+      rdf:type owl:Class ;
+      rdfs:comment "Tag depicting position of the path element in the whole path."^^xsd:string .
+
+saulSpatialConfiguration:quantitative
+      rdf:type saulSpatialConfiguration:F-typeQT .
+
+saulSpatialConfiguration:red
+      rdf:type saulSpatialConfiguration:color .
+
+saulSpatialConfiguration:region
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:sp .
+
+saulSpatialConfiguration:relative
+      rdf:type saulSpatialConfiguration:F-typeQT .
+
+saulSpatialConfiguration:secondPerson
+      rdf:type saulSpatialConfiguration:v .
+
+saulSpatialConfiguration:shape
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialEntity ;
+      rdfs:range saulSpatialConfiguration:shapeTypes .
+
+saulSpatialConfiguration:shapeTypes
+      rdf:type owl:Class ;
+      rdfs:comment "The shape of the spatial entity."^^xsd:string .
+
+saulSpatialConfiguration:size
+      rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:spatialEntity ;
+      rdfs:range saulSpatialConfiguration:sizeType .
+
+saulSpatialConfiguration:sizeType
+      rdf:type owl:Class ;
+      rdfs:comment "The size of the spatial entity"^^xsd:string .
+
+saulSpatialConfiguration:small
+      rdf:type saulSpatialConfiguration:sizeType .
+
+saulSpatialConfiguration:sp
+      rdf:type owl:Class ;
+      rdfs:comment "The lexical form of the relation between the tr and lm."^^xsd:string ;
+      rdfs:label "spatial indicator"^^xsd:string .
+
+saulSpatialConfiguration:span
+      rdf:type owl:Class ;
+      rdfs:comment "The text fragment describing given spatial or motion indicator"^^xsd:string ;
+      rdfs:label "span"^^xsd:string .
+
+saulSpatialConfiguration:spatialConfiguration
+      rdf:type owl:Class ;
+      rdfs:comment "The spatial configuration of the situation discribied in the NL setance or its part."^^xsd:string .
+
+saulSpatialConfiguration:spatialEntity
+      rdf:type owl:Class ;
+      rdfs:comment "The entity that participates in spatial configurations with varied roles of tr, lm or a part of a path."^^xsd:string .
+
+saulSpatialConfiguration:spatialRole
+      rdf:type owl:Class ;
+      rdfs:comment "Spatial role taken by the spatial enity in the scope of spatial configuraiton."^^xsd:string .
+
+saulSpatialConfiguration:speed
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain saulSpatialConfiguration:m ;
+      rdfs:range saulSpatialConfiguration:speedOfMovment .
+
+saulSpatialConfiguration:speedOfMovment
+      rdf:type owl:Class ;
+      rdfs:comment "The value of the movment speed."^^xsd:string .
+
+saulSpatialConfiguration:thirdPerson
+      rdf:type saulSpatialConfiguration:v .
+
+saulSpatialConfiguration:top
+      rdf:type saulSpatialConfiguration:areaName .
+
+saulSpatialConfiguration:topological
+      rdf:type saulSpatialConfiguration:G-typeQT .
+
+saulSpatialConfiguration:tr
+      rdf:type owl:Class ;
+      rdfs:comment "The entity whose location or trans-location is described in a spatial configuration."^^xsd:string ;
+      rdfs:label "trajector"^^xsd:string ;
+      rdfs:subClassOf saulSpatialConfiguration:spatialRole .
+
+saulSpatialConfiguration:v
+      rdf:type owl:Class ;
+      rdfs:comment "When FoR is relative, this indicates the viewer as first, second or third person."^^xsd:string ;
+      rdfs:label "viewer"^^xsd:string .
+
+saulSpatialConfiguration:vertically
+      rdf:type saulSpatialConfiguration:movmentManner .
+
+saulSpatialConfiguration:white
+      rdf:type saulSpatialConfiguration:color .
+
+saulSpatialConfiguration:whole
+      rdf:type saulSpatialConfiguration:pathElementPosition .
+
+saulSpatialConfiguration:yellow
+      rdf:type saulSpatialConfiguration:color .

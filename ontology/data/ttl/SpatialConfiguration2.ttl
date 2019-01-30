@@ -1,0 +1,60 @@
+# baseURI: http://ontology.ihmc.us/Spatial/data/SpatialConfiguration2.owl
+# imports: http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl
+# imports: http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saulSpatialConfiguration:  <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl#> .
+@prefix saulSpatialConfiguration2:  <http://ontology.ihmc.us/Spatial/data/SpatialConfiguration2.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/Spatial/data/SpatialConfiguration2.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment """This ontology contains Configuration2 examples of Saul Spatial Configuration definition using Saul Spatial ontology concepts.
+     
+     
+     Created by Andrzej Uszok (auszok@ihmc.us)."""^^xsd:string ;
+      owl:imports <http://ontology.ihmc.us/Spatial/SaulSpatialConfiguration.owl> , <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl> .
+
+saulSpatialConfiguration2:Configuration2
+      rdf:type saulSpatialConfiguration:spatialConfiguration ;
+      rdfs:comment "which is 5 spaces from the orange cube."^^xsd:string ;
+      saulSpatialConfiguration:hasLm
+              saulSpatialConfiguration2:l3 ;
+      saulSpatialConfiguration:hasQT
+              saulSpatialConfiguration:DC , saulSpatialConfiguration:distal , saulSpatialConfiguration:quantitative , saulSpatialConfiguration:topological ;
+      saulSpatialConfiguration:hasSp
+              saulSpatialConfiguration2:s3 ;
+      saulSpatialConfiguration:hasTr
+              saulSpatialConfiguration2:t2 ;
+      saulSpatialConfiguration:hasV
+              saulSpatialConfiguration:firstPersonAnon .
+
+saulSpatialConfiguration2:l3
+      rdf:type saulSpatialConfiguration:lm ;
+      saulSpatialConfiguration:hasFoR
+              saulSpatialConfiguration:relative ;
+      saulSpatialConfiguration:hasSpatialEntity
+              <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e4> .
+
+saulSpatialConfiguration2:s3
+      rdf:type saulSpatialConfiguration:sp ;
+      saulSpatialConfiguration:hasSpan
+              saulSpatialConfiguration2:s3_span .
+
+saulSpatialConfiguration2:s3_span
+      rdf:type saulSpatialConfiguration:span ;
+      saulSpatialConfiguration:hasSentenceNo
+              1 ;
+      saulSpatialConfiguration:hasStartTextIndex
+              110 ;
+      saulSpatialConfiguration:hasSubText
+              "5 spaces from"^^xsd:string ;
+      saulSpatialConfiguration:hastEndTextIndex
+              122 .
+
+saulSpatialConfiguration2:t2
+      rdf:type saulSpatialConfiguration:tr ;
+      saulSpatialConfiguration:hasSpatialEntity
+              <http://ontology.ihmc.us/Spatial/data/SpatialEntities.owl#e3> .
