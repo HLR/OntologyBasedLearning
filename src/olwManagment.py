@@ -1,5 +1,7 @@
 import os
+
 from owlready2 import *
+
 dash = '-' * 120
 
 def print_concepts(concepts, concepts_type_name):
