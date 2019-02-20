@@ -19,16 +19,17 @@ import spatialDataLoader
 
 # parse sprl data file 
 newSprl_sentences_df = spatialDataLoader.parseSprlXML('data/newSprl2017_all.xml') 
-print(newSprl_sentences_df.columns)
+#print(newSprl_sentences_df.columns)
 
 # get features
 corpus_df = spatialDataLoader.getCorpus(newSprl_sentences_df)
 
 corpus_df.reset_index(drop=True, inplace=True)
-print(corpus_df.head())
+#print(corpus_df.head())
 
 feature_df = corpus_df[['Feature_Words', 'output']]
-print(feature_df.head())
+print('feature_df head:\n', feature_df.head())
+print('feature_df tail:\n', feature_df.tail())
 
 class Dataset_From_DF(Dataset):
   'Characterizes a dataset for PyTorch'
@@ -50,7 +51,7 @@ class Dataset_From_DF(Dataset):
         
         X = torch.from_numpy(X_internal2).float()
         y_internal = corpus_df['output'][i]
-        y = torch.tensor(y_internal)
+        y = torch.tensor(y_internal).float()
 
         return X, y
 
@@ -97,6 +98,7 @@ class NeuralNet(nn.Module):
         self.relu = nn.ReLU()
         self.fc2 = nn.Linear(hidden_size, num_classes).float()
         t2 = self.fc2.weight.dtype
+        self.logsoft = nn.LogSoftmax()
 
     def forward(self, x):
         out = self.fc1(x)
@@ -107,7 +109,7 @@ class NeuralNet(nn.Module):
 model = NeuralNet(D_in, H, D_out)
 
 # Loss and optimizer
-criterion = nn.CrossEntropyLoss()
+criterion = nn.SmoothL1Loss() #n.NLLLoss() # nn.MSELoss(reduction='sum') #nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)  
 
 # Train the model
@@ -117,13 +119,13 @@ for epoch in range(num_epochs):
     i = 1
     for X, y in train_loader:  
         # Forward pass
-        print(i)
-        print(X)
-        print(y)
+        #print(i)
+        #print(X)
+        #print(y)
         t = X.dtype
         
         outputs = model(X)
-        print(outputs)
+        #print(outputs)
         loss = criterion(outputs, y)
         
         # Backward and optimize
