@@ -142,12 +142,12 @@ for epoch in range(num_epochs):
 with torch.no_grad():
     correct = 0
     total = 0
-    for images, labels in test_loader:
-        outputs = model(images)
+    for X, y in test_loader:
+        outputs = model(X)
         _, predicted = torch.max(outputs.data, 1)
 
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
+        total += y.size(0)
+        correct += (predicted == y).sum().item()
 
     print('Accuracy of the network: {} %'.format(100 * correct / total))
 
