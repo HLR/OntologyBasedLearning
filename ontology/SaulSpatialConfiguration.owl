@@ -125,6 +125,7 @@
   </owl:Class>
   <owl:Class rdf:ID="lm">
     <rdfs:subClassOf rdf:resource="#spatialRole"/>
+    <owl:disjointWith rdf:resource="#tr" />
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >landmark</rdfs:label>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
