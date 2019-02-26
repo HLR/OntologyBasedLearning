@@ -112,7 +112,7 @@ class NeuralNet(nn.Module):
         return out
 
 modelTrajector = NeuralNet(D_in, H1, H2, D_out)
-modelLocator = NeuralNet(D_in, H1, H2, D_out)
+modelLandmark = NeuralNet(D_in, H1, H2, D_out)
 
 # Train the model
 total_step = 8
@@ -173,5 +173,5 @@ def perfromLearning(model, learnedConceptName):
     #model.load_state_dict('result/model' + learnedConceptName + '.ckpt')
     
 perfromLearning(modelTrajector, 'Trajector')
-perfromLearning(modelLocator, 'Locator')
+perfromLearning(modelLandmark, 'Landmark')
 
