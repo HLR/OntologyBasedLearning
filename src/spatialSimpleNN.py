@@ -15,22 +15,24 @@ import torch.optim as optim
 # collection
 from  collections import OrderedDict
 
+# loader of spatial data and extractor of features
 import spatialDataLoader
 
 # parse sprl data file 
 newSprl_sentences_df = spatialDataLoader.parseSprlXML('data/newSprl2017_all.xml') 
-#print(newSprl_sentences_df.columns)
 
-# get features
+# get features for loaded data
 corpus_df = spatialDataLoader.getCorpus(newSprl_sentences_df)
 
+# fix indexes in the spatial feature dataframe
 corpus_df.reset_index(drop=True, inplace=True)
-#print(corpus_df.head())
 
+# select the feature and output columns from the dataframe
 feature_df = corpus_df[['Feature_Words', 'output']]
 print('feature_df head:\n', feature_df.head())
 print('feature_df tail:\n', feature_df.tail())
 
+# Pytorch Dataset for the selected feature data
 class Dataset_From_DF(Dataset):
   'Characterizes a dataset for PyTorch'
   def __init__(self, corpus_df):
@@ -45,12 +47,12 @@ class Dataset_From_DF(Dataset):
         'Generates one sample of data'
 
         # Get data from Dataframe
-        i = index
-        X_internal1 = corpus_df['Feature_Words'][i]
-        X_internal2 = X_internal1.toarray()
         
+        X_internal1 = corpus_df['Feature_Words'][index]
+        X_internal2 = X_internal1.toarray().squeeze()
         X = torch.from_numpy(X_internal2).float()
-        y_internal = corpus_df['output'][i]
+        
+        y_internal = corpus_df['output'][index]
         y = torch.tensor(y_internal).float()
 
         return X, y
@@ -60,17 +62,17 @@ valid_size = 0.2
 
 # Learning parameters 
 
-# N is batch size; D_in is input dimension;
-# H is hidden dimension; D_out is output dimension.
+# N is batch size; D_in is input dimension; X = torch.randn(N, D_in)
+# H is hidden dimension; D_out is output dimension. y = torch.randn(N, D_out)
 N = 225
 D_in = 518 # input_size
-H = 259    # hidden_size
+H1 = 259    # hidden_size
+H2 = 130    # hidden_size
 D_out = 2 # num_classes
 
 num_epochs = 40
 learning_rate = 0.001
 
-# 3. obtain inn(feature_dfdices that will be used for validation ----
 num_train = feature_df.index.size - 6
 indices = list(range(num_train))
 np.random.shuffle(indices)
@@ -85,58 +87,66 @@ train_data = Dataset_From_DF(feature_df)
 train_loader = torch.utils.data.DataLoader(train_data,  batch_size=N, sampler = train_sampler)
 test_loader = torch.utils.data.DataLoader(train_data, batch_size=N, sampler = valid_sampler)
 
-# Create random Tensors to hold inputs and outputs
-#X = torch.randn(N, D_in)
-#y = torch.randn(N, D_out)
-
-# Fully connected neural network with one hidden layer
+# Fully connected neural network with two hidden layer
 class NeuralNet(nn.Module):
-    def __init__(self, input_size, hidden_size, num_classes):
+    def __init__(self, input_size, hidden_size1, hidden_size2, num_classes):
         super(NeuralNet, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size).float()
-        t1 = self.fc1.weight.dtype
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(hidden_size, num_classes).float()
-        t2 = self.fc2.weight.dtype
-        self.logsoft = nn.LogSoftmax()
+        self.fc1 = nn.Linear(input_size, hidden_size1).float()
+        self.relu1 = nn.ReLU()
+        self.fc2 = nn.Linear(hidden_size1, hidden_size2).float()
+        self.relu2 = nn.ReLU()
+        self.fc3 = nn.Linear(hidden_size2, num_classes).float()
+        #self.logsoft = nn.LogSoftmax()
 
     def forward(self, x):
         out = self.fc1(x)
-        out = self.relu(out)
+        out = self.relu1(out)
         out = self.fc2(out)
+        out = self.relu2(out)
+        out = self.fc3(out)
+        #out = self.logsoft(out)
         return out
 
-model = NeuralNet(D_in, H, D_out)
+model = NeuralNet(D_in, H1, H2, D_out)
 
 # Loss and optimizer
 criterion = nn.SmoothL1Loss() #n.NLLLoss() # nn.MSELoss(reduction='sum') #nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)  
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.1, patience=10)
 
 # Train the model
-total_step = len(train_loader)
+total_step = 8
 
 for epoch in range(num_epochs):
-    i = 1
-    for X, y in train_loader:  
-        # Forward pass
-        #print(i)
-        #print(X)
-        #print(y)
-        t = X.dtype
+    for batch_idx, (X, y) in enumerate(train_loader):  
+        def closure():
+            # Forward pass
+            #print(i)
+            #print(X)
+            #print(y)
+            #t = X.dtype
+            
+            outputs = model(X)
+            #print(outputs)
+            loss = criterion(outputs, y)
         
-        outputs = model(X)
-        #print(outputs)
-        loss = criterion(outputs, y)
-        
-        # Backward and optimize
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        
-        i = i + 1
-        if (i+1) % 2 == 0:
-            print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' .format(epoch+1, num_epochs, i+1, total_step, loss.item()))
+            # Backward and optimize
+            optimizer.zero_grad()
+            loss.backward()
+             
+            return loss
+                    
+        loss = optimizer.step(closure)
 
+        if (batch_idx+1) % 2 == 0:
+            print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' .format(epoch+1, num_epochs, batch_idx+1, total_step, loss.item()))
+
+    #X, y = valid_dataset
+    #valid_out = model(X)
+    #valid_loss = loss_fn(valid_out, y)
+    
+    #scheduler.step(valid_loss)
+    
 # Test the model
 # In test phase, we don't need to compute gradients (for memory efficiency)
 with torch.no_grad():
@@ -146,10 +156,15 @@ with torch.no_grad():
         outputs = model(X)
         _, predicted = torch.max(outputs.data, 1)
 
-        total += y.size(0)
-        correct += (predicted == y).sum().item()
+        #predicted_float = predicted.type_as(y)
+        
+        _, y_index = torch.max(y, 1)
+        
+        total += y_index.size(0)
+        correct += (predicted == y_index).sum().item()
 
     print('Accuracy of the network: {} %'.format(100 * correct / total))
 
 # Save the model checkpoint
 torch.save(model.state_dict(), 'model.ckpt')
+#model.load_state_dict('model.ckpt')
