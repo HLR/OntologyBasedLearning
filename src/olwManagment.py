@@ -92,3 +92,11 @@ for instance in mySaulSpatialOnto.spatialConfiguration.instances():
     queryString4 = "SELECT ?p WHERE {<" + instance.iri + "> <" +  mySaulSpatialOnto.hasM.iri + "> ?p .}"
 #   print(queryString4)
     print("    Found motion indicator", list(graph.query_owlready(queryString4)), "\n")  
+    
+#AllDisjoint(mySaulSpatialOnto.tr, mySaulSpatialOnto.lm)
+sync_reasoner()
+
+testSpatialEntity = mySaulSpatialOnto.tr()
+testSpatialEntity.is_a.append(mySaulSpatialOnto.lm)
+print('testSpatialEntity ', testSpatialEntity)
+    

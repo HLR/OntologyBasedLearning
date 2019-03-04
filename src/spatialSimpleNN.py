@@ -22,6 +22,9 @@ from pathlib import Path
 # loader of spatial data and extractor of features
 import spatialDataLoader
 
+# References to ontology concept and method checking consistency  of learning results
+import owlReasoning
+
 # parse sprl data file 
 newSprl_sentences_df = spatialDataLoader.parseSprlXML('data/newSprl2017_all.xml') 
 
@@ -33,8 +36,11 @@ corpus_df.reset_index(drop=True, inplace=True)
 
 # select the feature and output columns from the dataframe
 feature_df = corpus_df[['Feature_Words', 'output']]
-print('feature_df head:\n', feature_df.head())
-print('feature_df tail:\n', feature_df.tail())
+
+outputClasses = [owlReasoning.mySaulSpatialOnto.lm, owlReasoning.mySaulSpatialOnto.tr]
+
+#print('feature_df head:\n', feature_df.head())
+#print('feature_df tail:\n', feature_df.tail())
 
 # Pytorch Dataset for the selected feature data
 class Dataset_From_DF(Dataset):
@@ -50,7 +56,7 @@ class Dataset_From_DF(Dataset):
   def __getitem__(self, index):
     'Generates one sample of data'
 
-    # Get data from Dataframe
+    # Get data from DataFrame
         
     X_internal1 = corpus_df['Feature_Words'][index]
     X_internal2 = X_internal1.toarray().squeeze()
@@ -61,9 +67,11 @@ class Dataset_From_DF(Dataset):
 
     return X, y
 
+feature_df_data_retriver = Dataset_From_DF(feature_df)
+
 # % of training set to use as validation
 valid_size = 0.2
-
+test_size  = 0.05
 # Learning parameters 
 
 # N is batch size; D_in is input dimension; X = torch.randn(N, D_in)
@@ -74,22 +82,40 @@ H1 = 259    # hidden_size
 H2 = 130    # hidden_size
 D_out = 2 # num_classes
 
-num_epochs = 40
+num_epochs = 5
 learning_rate = 0.001
 
 num_train = feature_df.index.size - 6
+split1 = int(np.floor((valid_size + test_size) * num_train))
+split2 = int(np.floor(test_size * num_train))
 indices = list(range(num_train))
-np.random.shuffle(indices)
-split = int(np.floor(valid_size * num_train))
-train_idx, valid_idx = indices[split:], indices[:split]
 
-# define samplers for obtaining training and validation batches
-train_sampler = SubsetRandomSampler(train_idx)
-valid_sampler = SubsetRandomSampler(valid_idx)
+test_idx = indices[0:split2]
 
-train_data = Dataset_From_DF(feature_df)
-train_loader = torch.utils.data.DataLoader(train_data,  batch_size=N, sampler = train_sampler)
-test_loader = torch.utils.data.DataLoader(train_data, batch_size=N, sampler = valid_sampler)
+indicesLandmark = indices[split2:]
+indicesTrajector = indicesLandmark.copy()
+
+# Landmark
+np.random.shuffle(indicesLandmark)
+
+Lvalid_idx, Ltrain_idx = indicesLandmark[0:split1], indicesLandmark[split1:]
+
+Ltrain_sampler = SubsetRandomSampler(Ltrain_idx)
+Lvalid_sampler = SubsetRandomSampler(Lvalid_idx)
+
+Ltrain_loader = torch.utils.data.DataLoader(feature_df_data_retriver,  batch_size=N, sampler = Ltrain_sampler)
+Lvalid_loader = torch.utils.data.DataLoader(feature_df_data_retriver, batch_size=N, sampler = Lvalid_sampler)
+
+# Trajector
+indicesTrajector = indicesLandmark.copy()
+np.random.shuffle(indicesTrajector)
+Tvalid_idx, Ttrain_idx = indicesTrajector[0:split1],  indicesTrajector[split1:]
+
+Ttrain_sampler = SubsetRandomSampler(Ttrain_idx)
+Tvalid_sampler = SubsetRandomSampler(Tvalid_idx)
+
+Ttrain_loader = torch.utils.data.DataLoader(feature_df_data_retriver,  batch_size=N, sampler = Ltrain_sampler)
+Tvalid_loader = torch.utils.data.DataLoader(feature_df_data_retriver, batch_size=N, sampler = Lvalid_sampler)
 
 # Fully connected neural network with three hidden layer
 class NeuralNet(nn.Module):
@@ -117,7 +143,7 @@ modelLandmark = NeuralNet(D_in, H1, H2, D_out)
 # Train the model
 total_step = 8
 
-def perfromLearning(model, learnedConceptName):
+def perfromLearning(model, learnedConceptName, train_loader, valid_loader):
     
     # Loss and optimizer
     criterion = nn.SmoothL1Loss() #n.NLLLoss() # nn.MSELoss(reduction='sum') #nn.CrossEntropyLoss()
@@ -148,11 +174,11 @@ def perfromLearning(model, learnedConceptName):
         
         #scheduler.step(valid_loss)
         
-    # Test the model
-    with torch.no_grad(): # In test phase, we don't need to compute gradients (for memory efficiency)
+    # Validate the model
+    with torch.no_grad(): # In validation phase, we don't need to compute gradients (for memory efficiency)
         correct = 0
         total = 0
-        for X, y in test_loader:
+        for X, y in valid_loader:
             outputs = model(X)
             _, predicted = torch.max(outputs.data, 1)
     
@@ -172,6 +198,40 @@ def perfromLearning(model, learnedConceptName):
     torch.save(model.state_dict(), 'results/model' + learnedConceptName + '.ckpt')
     #model.load_state_dict('result/model' + learnedConceptName + '.ckpt')
     
-perfromLearning(modelTrajector, 'Trajector')
-perfromLearning(modelLandmark, 'Landmark')
+perfromLearning(modelLandmark, 'Landmark', Ltrain_loader, Lvalid_loader)
+perfromLearning(modelTrajector, 'Trajector', Ttrain_loader, Tvalid_loader)
+
+# Test the model
+with torch.no_grad(): # In test phase, we don't need to compute gradients (for memory efficiency)
+    correct = 0
+    total = 0
+    for index in test_idx:
+        
+        X_internal1 = corpus_df['Feature_Words'][index]
+        X_internal2 = X_internal1.toarray().squeeze()
+        X = torch.from_numpy(X_internal2).float()
+        
+        Loutputs = modelLandmark(X)
+        Toutputs = modelTrajector(X)
+        
+        foundClassesoOfSpacialEntity = []
+        
+        _, Lpredicted = torch.max(Loutputs.data, 0)            
+        _, Tpredicted = torch.max(Toutputs.data, 0)          
+        
+        _Lpredicted = Lpredicted.item()
+        _Tpredicted = Tpredicted.item()
+        
+        print(index)
+        print(outputClasses[_Lpredicted])
+        print(outputClasses[_Tpredicted])
+        
+        if owlReasoning.testConsistencyOfInstance(outputClasses[_Lpredicted], outputClasses[_Tpredicted]):
+            print('Consistent')
+        else:
+            print('Not Consistent')
+        
+        
+        
+    
 
