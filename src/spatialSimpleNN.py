@@ -1,3 +1,10 @@
+# file path
+import os
+from pathlib import Path
+
+# collection
+from collections import OrderedDict
+
 # numpy
 import numpy as np
 
@@ -12,21 +19,20 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-# collection
-from collections import OrderedDict
-
-# file path
-import os
-from pathlib import Path
-
 # loader of spatial data and extractor of features
 import spatialDataLoader
 
 # References to ontology concept and method checking consistency  of learning results
 import owlReasoning
 
+# check if ontology path is correct
+dataPath = Path(os.path.normpath("../data"))
+if not os.path.isdir(dataPath.resolve()):
+    print("Path to load data:", dataPath.resolve(), "does not exists")
+    exit()
+    
 # parse sprl data file 
-newSprl_sentences_df = spatialDataLoader.parseSprlXML('data/newSprl2017_all.xml') 
+newSprl_sentences_df = spatialDataLoader.parseSprlXML('../data/newSprl2017_all.xml') 
 
 # get features for loaded data
 corpus_df = spatialDataLoader.getCorpus(newSprl_sentences_df)
@@ -37,7 +43,7 @@ corpus_df.reset_index(drop=True, inplace=True)
 # select the feature and output columns from the dataframe
 feature_df = corpus_df[['Feature_Words', 'output']]
 
-outputClasses = [owlReasoning.mySaulSpatialOnto.lm, owlReasoning.mySaulSpatialOnto.tr]
+#outputClasses = [(owlReasoning.mySaulSpatialOnto.lm,  "Landmark"), (owlReasoning.mySaulSpatialOnto.tr, "Trajector")]
 
 #print('feature_df head:\n', feature_df.head())
 #print('feature_df tail:\n', feature_df.tail())
@@ -126,7 +132,9 @@ class NeuralNet(nn.Module):
         self.fc2 = nn.Linear(hidden_size1, hidden_size2).float()
         self.relu2 = nn.ReLU()
         self.fc3 = nn.Linear(hidden_size2, num_classes).float()
+        #self.batchNomral = nn.BatchNorm1d(num_classes)
         #self.logsoft = nn.LogSoftmax()
+        #self.softmax2d = nn.Softmax2d()
 
     def forward(self, x):
         out = self.fc1(x)
@@ -134,7 +142,8 @@ class NeuralNet(nn.Module):
         out = self.fc2(out)
         out = self.relu2(out)
         out = self.fc3(out)
-        #out = self.logsoft(out)
+        #out = self.batchNomral(out)
+        #out = self.softmax2d(out)
         return out
 
 modelTrajector = NeuralNet(D_in, H1, H2, D_out)
@@ -168,6 +177,7 @@ def perfromLearning(model, learnedConceptName, train_loader, valid_loader):
             if (batch_idx+1) % 2 == 0:
                 print (learnedConceptName + ' learning Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' .format(epoch+1, num_epochs, batch_idx+1, total_step, loss.item()))
     
+        # TODO: --- Integrate scheduler
         #X, y = valid_dataset #TODO
         #valid_out = model(X)
         #valid_loss = loss_fn(valid_out, y)
@@ -196,15 +206,19 @@ def perfromLearning(model, learnedConceptName, train_loader, valid_loader):
     if not resultsPath.exists():
         os.mkdir(resultsPath)
     torch.save(model.state_dict(), 'results/model' + learnedConceptName + '.ckpt')
-    #model.load_state_dict('result/model' + learnedConceptName + '.ckpt')
     
+#model.load_state_dict('result/model' + learnedConceptName + '.ckpt')
+    
+print('\n ---  Learning phase - Building classifiers --- \n')
+
 perfromLearning(modelLandmark, 'Landmark', Ltrain_loader, Lvalid_loader)
 perfromLearning(modelTrajector, 'Trajector', Ttrain_loader, Tvalid_loader)
 
 # Test the model
 with torch.no_grad(): # In test phase, we don't need to compute gradients (for memory efficiency)
-    correct = 0
-    total = 0
+    
+    print('\n ---  Testing classifiers --- \n')
+
     for index in test_idx:
         
         X_internal1 = corpus_df['Feature_Words'][index]
@@ -216,20 +230,20 @@ with torch.no_grad(): # In test phase, we don't need to compute gradients (for m
         
         foundClassesoOfSpacialEntity = []
         
-        _, Lpredicted = torch.max(Loutputs.data, 0)            
-        _, Tpredicted = torch.max(Toutputs.data, 0)          
+        LValue, Lpredicted = torch.max(Loutputs.data, 0)            
+        TValue, Tpredicted = torch.max(Toutputs.data, 0)          
         
         _Lpredicted = Lpredicted.item()
         _Tpredicted = Tpredicted.item()
         
-        print(index)
-        print(outputClasses[_Lpredicted])
-        print(outputClasses[_Tpredicted])
-        
-        if owlReasoning.testConsistencyOfInstance(outputClasses[_Lpredicted], outputClasses[_Tpredicted]):
-            print('Consistent')
+        if owlReasoning.testConsistencyOfInstance(spatialDataLoader.output[_Lpredicted][0], spatialDataLoader.output[_Tpredicted][0]):
+            print(newSprl_sentences_df['TEXT'][index], "  --- classified a", spatialDataLoader.output[_Lpredicted][1], '\n')
         else:
-            print('Not Consistent')
+            print('Found not consistent classification will decide based on classifiers result: ', LValue.item(), TValue.item())
+            if LValue.item() >= TValue.item():
+                print(newSprl_sentences_df['TEXT'][index], "  --- classified a", spatialDataLoader.output[_Lpredicted][1], '\n')
+            else:
+                print(newSprl_sentences_df['TEXT'][index], "  --- classified a", spatialDataLoader.output[_Tpredicted][1], '\n')
         
         
         

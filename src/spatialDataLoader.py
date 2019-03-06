@@ -9,6 +9,8 @@ import pandas as pd
 #sklearn
 from sklearn.feature_extraction.text import CountVectorizer
 
+import owlReasoning
+
 def parseSprlXML(sprlXmlfile): 
   
     # parse the xml tree object 
@@ -42,24 +44,23 @@ def parseSprlXML(sprlXmlfile):
 
     # create empty dataform for sentences
     sentences_df = pd.DataFrame(sentences_list)
-  
-    # return sentence items list 
-    print("Found number of trajectors and landmarks ", len(sentences_df))
 
     return sentences_df
 
-output = {'Landmar' : [1, 0], 'Trajector' : [0, 1]}
+output = ((owlReasoning.mySaulSpatialOnto.lm,  "Landmark", [1, 0]), (owlReasoning.mySaulSpatialOnto.tr, "Trajector", [0, 1]))
+
+#output = {'Landmar' : [1, 0], 'Trajector' : [0, 1]}
 
 def getCorpus(sentences_df):
 
     # Combine landmarks and trajectors phrases and add answers
     corpus_landmarks = pd.DataFrame(sentences_df['LANDMARK']).rename(index=str, columns={"LANDMARK": "Phrase"})
     corpus_landmarks = corpus_landmarks[~corpus_landmarks['Phrase'].isnull()]
-    corpus_landmarks['output'] = corpus_landmarks['Phrase'].apply(lambda x: output['Landmar'])
+    corpus_landmarks['output'] = corpus_landmarks['Phrase'].apply(lambda x: output[0][2])
 
     corpus_trajectors = pd.DataFrame(sentences_df['TRAJECTOR']).rename(index=str, columns={"TRAJECTOR": "Phrase"})
     corpus_trajectors = corpus_trajectors[~corpus_trajectors['Phrase'].isnull()]
-    corpus_trajectors['output'] = corpus_trajectors["Phrase"].apply(lambda x: output['Trajector'])
+    corpus_trajectors['output'] = corpus_trajectors["Phrase"].apply(lambda x: output[1][2])
 
     corpus = corpus_landmarks.append(corpus_trajectors)
     
