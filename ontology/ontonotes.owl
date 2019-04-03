@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:ontonotes="http://ontology.ihmc.us/ontonotes/ontonotes.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://ontology.ihmc.us/ontonotes/ontonotes.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This ontology contains OntoNotes concepts. Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+  </owl:Ontology>
+  <owl:Class rdf:ID="WORK_OF_ART">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="VirtualEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Titles of books, songs, etc.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LOCATION">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PhysicalEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Non-GPE locations, mountain ranges, bodies of water</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PERSON">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PhysicalEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >People, including fictional</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="QUANTITY">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ValueEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurements, as of weight or distance</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LANGUAGE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#VirtualEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Any named language</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PRODUCT">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PhysicalEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Vehicles, weapons, foods, etc. (Not services)</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="DATE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TemporalEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Absolute or relative dates or periods</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="FACILITY">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PhysicalEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Buildings, airports, highways, bridges, etc.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#TemporalEntity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ValueEntity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#VirtualEntity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="NamedEntity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TIME">
+    <rdfs:subClassOf rdf:resource="#TemporalEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Times smaller than a day</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PERCENT">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ValueEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Percentage (including “%”)</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ORDINAL">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ValueEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >“first”, “second”</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#PhysicalEntity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NamedEntity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#NamedEntity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Entity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MONEY">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ValueEntity"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Monetary values, including unit</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LAW">
+    <rdfs:subClassOf rdf:resource="#VirtualEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Named documents made into laws</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="EVENT">
+    <rdfs:subClassOf rdf:resource="#VirtualEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Named hurricanes, battles, wars, sports events, etc.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="GPE">
+    <rdfs:subClassOf rdf:resource="#PhysicalEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Countries, cities, states</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="NORP">
+    <rdfs:subClassOf rdf:resource="#VirtualEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Nationalities or religious or political groups</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#ValueEntity">
+    <rdfs:subClassOf rdf:resource="#Entity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ORGANIZATION">
+    <rdfs:subClassOf rdf:resource="#VirtualEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Companies, agencies, institutions, etc.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="CARDINAL">
+    <rdfs:subClassOf rdf:resource="#ValueEntity"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Numerals that do not fall under another type</rdfs:comment>
+  </owl:Class>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->
