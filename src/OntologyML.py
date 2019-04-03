@@ -18,13 +18,13 @@ class OntologyMLModelCreator :
         
         ontConceptSubclasses = classifierNode.ontConcept.subclasses(only_loaded = False, world = None)
         for subClass in ontConceptSubclasses :
-            print("Current subclasse", subClass) # immediate subclasses without self
+            print("\nCurrent subclasse", subClass) # immediate subclasses without self
             
             # Create classfier for this subclass concept
             subClassClassifier = OntologyMLModelClassifier(subClass, data)
             
             # Add this classifier to the list in the current node
-            classifierNode.subClassfier[subClass] = subClassClassifier
+            classifierNode.subClassfiers[subClass] = subClassClassifier
             
             # Extract data for the current subgraph
             subClassData = self.selectDataForConcept(subClass.descendants(include_self = True, only_loaded = False, world = None), data)
@@ -34,6 +34,9 @@ class OntologyMLModelCreator :
             
             # Recursively build subgraph for the current subclass
             self.buildGraph(subClassClassifier, subClassData)
+        
+        if not bool(classifierNode.subClassfiers) :
+            print("Leaf")
     
     def build_model(self, ontology, data) :
         # Check if ontology path is correct
@@ -51,17 +54,8 @@ class OntologyMLModelCreator :
         # Get root class
         rootClass = None
         for cont_class in myOnto.classes():
-            #print(cont_class)
-            #print("ancestors", cont_class.ancestors(include_self = True)) # all parent
-            #print("descendants", cont_class.descendants(include_self = True, only_loaded = False, world = None)) # all subclasses 
-            
-            #for subClass in cont_class.subclasses(only_loaded = False, world = None) :
-            #    print("subclasse", subClass) # immediate subclasses without self
-            
             for parent in cont_class.is_a : # immediate parent without self
-                #print("    is a %s" %parent)
                 if parent == owl.Thing :
-                    print("Root")
                     rootClass = cont_class
                     break 
                 
@@ -69,26 +63,12 @@ class OntologyMLModelCreator :
                 #assuming single Root class
                 break
         
-        print("Found root class - ", rootClass)
-        
-        #print("ancestors", rootClass.ancestors(include_self = True))
-        #print("descendants", rootClass.descendants(include_self = True, only_loaded = False, world = None))
-        #for subClass in rootClass.subclasses(only_loaded = False, world = None) :
-        #    print("subclasse", subClass)
-        #
-        #leafConcepts = []
-        #for currentDescendant in descendants(include_self = True, only_loaded = False, world = None) :
-        #   if bool(currentDescendant.subclasses(only_loaded = False, world = None) :
-        #       leafConcepts.append(currentDescendant)
-        #print("leafConcepts", leafConcepts)
-        
-        #subClasses = myOnto.search(subclass_of = rootClass)
-        #print("subClasses", subClasses)
+        print("\nFound root class - ", rootClass, "\n")
 
-        # create new OntologyMLModelClassifier - sent to thread for init
+        # Create new OntologyMLModelClassifier - TODO sent to thread for init
         rootClassifier = OntologyMLModelClassifier(rootClass, data)
         
-        # build graph
+        # Build graph
         self.buildGraph(rootClassifier, data)
         
         return rootClassifier
@@ -99,7 +79,7 @@ class OntologyMLModelClassifier :
     def __init__(self, ontConcept, data) :
         self.ontConcept = ontConcept
         self.model = None
-        self.subClassfier = dict()
+        self.subClassfiers = dict()
         
     def learnModel(self, data):
         pass
@@ -113,7 +93,7 @@ class OntologyMLModelClassifier :
         
         # Get shallow classification from each child (using model build using combined data from all concepts below given child)
         shallowClassificationResults = dict()
-        for currentConcept, currentClassfier in self.subClassfier.items() :
+        for currentConcept, currentClassfier in self.subClassfiers.items() :
             shallowClassificationResults[currentConcept] = currentClassfier.shallowClassify(instance) # probability number
         
         # Decide which subnodes to follow 
@@ -124,7 +104,8 @@ class OntologyMLModelClassifier :
         for currentMaxShallowClassificationResult in maxShallowClassificationResults: # concepts
            if bool(list(currentMaxShallowClassificationResult.subclasses(only_loaded = False, world = None))) : # check if empty
                # Not leaf - not empty
-               selectedClassifierResults = self.subClassfier[currentMaxShallowClassificationResult].classify(instance)
+               selectedClassifierResults = self.subClassfiers[currentMaxShallowClassificationResult].classify(instance) # run subgraph classification
+               
                for selectedClassifierResult in selectedClassifierResults :
                    classificationResults[selectedClassifierResult[0]] = selectedClassifierResult[1]
            else:
@@ -140,11 +121,8 @@ class OntologyMLModelClassifier :
         
 # --------- Testing
 
-#shallowClassification = dict(concept1=.09, concept2=.08, concept3=.01, concept4=.09, concept5=.05, concept6=.01)
-#maxList = [key for m in [max(shallowClassification.values())] for key,val in shallowClassification.items() if val == m]
-#print(maxList)
-
 myOntologyMLModelCreator = OntologyMLModelCreator("OntoNotes")
 buildClassifier = myOntologyMLModelCreator.build_model("http://ontology.ihmc.us/ontonotes/ontonotes.owl", None)
 
+print("\n")
 print("\nClassify result", buildClassifier.classify("test"))
