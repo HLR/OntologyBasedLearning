@@ -51,6 +51,7 @@ class OntologyMLModelCreator :
         myOnto = get_ontology(ontology)
         myOnto.load(only_local = False, fileobj = None, reload = False, reload_if_newer = False)
         
+        print("\n---- Building graph for ontology:", ontology)
         # Get root class
         rootClass = None
         for cont_class in myOnto.classes():
@@ -82,12 +83,24 @@ class OntologyMLModelClassifier :
         self.subClassfiers = dict()
         
     def learnModel(self, data):
-        pass
+        pass # TODO
     
     def shallowClassify(self, instance):
         # TODO integrate model
         return random.random() # Temporary
     
+    def selectNodesForSubGraphClassification(self, shallowClassificationResults):
+        # Right now select with the highest probability
+        selectedNodes = [key for m in [max(shallowClassificationResults.values())] for key,val in shallowClassificationResults.items() if val == m] 
+        
+        return selectedNodes # concepts associated with node
+    
+    def decideOnClassificationResult(self, classificationResults):
+         # Right now select with the highest probability
+        selectedClassificationResults = [key for m in [max(classificationResults.values())] for key,val in classificationResults.items() if val == m] 
+        
+        return selectedClassificationResults # concepts associated with result
+        
     def classify(self, instance) :
         print("Classifying -", instance, "- in the node for concept", self.ontConcept)
         
@@ -97,32 +110,34 @@ class OntologyMLModelClassifier :
             shallowClassificationResults[currentConcept] = currentClassfier.shallowClassify(instance) # probability number
         
         # Decide which subnodes to follow 
-        # right now select with the highest probability
-        maxShallowClassificationResults = [key for m in [max(shallowClassificationResults.values())] for key,val in shallowClassificationResults.items() if val == m]
+        selectedNodes = self.selectNodesForSubGraphClassification(shallowClassificationResults)
         
         classificationResults = dict()
-        for currentMaxShallowClassificationResult in maxShallowClassificationResults: # concepts
-           if bool(list(currentMaxShallowClassificationResult.subclasses(only_loaded = False, world = None))) : # check if empty
-               # Not leaf - not empty
-               selectedClassifierResults = self.subClassfiers[currentMaxShallowClassificationResult].classify(instance) # run subgraph classification
+        for selectedNode in selectedNodes : 
+           if bool(list(selectedNode.subclasses(only_loaded = False, world = None))) : # check if empty
+               # Not empty - not leaf concept
+               selectedClassifierResults = self.subClassfiers[selectedNode].classify(instance) # run subgraph classification
                
+               # Add found classification results to classificationResults
                for selectedClassifierResult in selectedClassifierResults :
                    classificationResults[selectedClassifierResult[0]] = selectedClassifierResult[1]
            else:
-               #Leaf
-               classificationResults[currentMaxShallowClassificationResult] = shallowClassificationResults[currentMaxShallowClassificationResult] # Already found probability for this leaf
+               # Leaf concept
+               # Copy previous result to classificationResults
+               classificationResults[selectedNode] = shallowClassificationResults[selectedNode] # Already found probability for this leaf
                
-        # Decide which subnodes to follow 
-        # right now select with the highest probability
-        maxClassifiers = [key for m in [max(classificationResults.values())] for key,val in classificationResults.items() if val == m]
+        # Decide which results to select 
+        selectedResults = self.decideOnClassificationResult(classificationResults)
         
-        myResult = [(key, classificationResults[key]) for key in maxClassifiers]
+        # Build list of tuples with concept and probability
+        myResult = [(key, classificationResults[key]) for key in selectedResults]
+        
         return myResult
         
 # --------- Testing
 
 myOntologyMLModelCreator = OntologyMLModelCreator("OntoNotes")
-buildClassifier = myOntologyMLModelCreator.build_model("http://ontology.ihmc.us/ontonotes/ontonotes.owl", None)
+ontoNotesClassifier = myOntologyMLModelCreator.build_model("http://ontology.ihmc.us/ontonotes/ontonotes.owl", None)
 
-print("\n")
-print("\nClassify result", buildClassifier.classify("test"))
+print("\n-- Test Classification algorithm with dummy instance - traversing graph of learners")
+print("\nClassification result - ", ontoNotesClassifier.classify("test"))
