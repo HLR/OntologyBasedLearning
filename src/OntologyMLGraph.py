@@ -85,7 +85,6 @@ class OntologyMLGraphCreator :
         # Load ontology
         myOnto = get_ontology(ontology)
         myOnto.load(only_local = False, fileobj = None, reload = False, reload_if_newer = False)
-        print (myOnto.imported_ontologies)
         
         print("\n---- Building graph for ontology:", ontology)
         
@@ -118,16 +117,20 @@ class OntologyMLGraphCreator :
     
 # --------- Testing
 
-#-- Ontonotes
-ontonotesOntologyMLGraphCreator = OntologyMLGraphCreator("Ontonotes")
-ontonotesGraphFileName = ontonotesOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl", "OntonotesGraph.py") 
+def main() :
+    #-- Ontonotes
+    ontonotesOntologyMLGraphCreator = OntologyMLGraphCreator("Ontonotes")
+    ontonotesGraphFileName = ontonotesOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl", "OntonotesGraph.py") 
+    
+    ontonotesGraphFile = open(ontonotesGraphFileName, 'r')
+    print("\nGraph build based on ontology - Python source code - %s\n\n" %ontonotesGraphFileName, ontonotesGraphFile.read())
+    
+    #-- EMR
+    emrOntologyMLGraphCreator = OntologyMLGraphCreator("EMR")
+    emrGraphFileName = emrOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/EMR.owl", "EMRGraph.py")
+    
+    emrGraphFile = open(emrGraphFileName, 'r')
+    print("\nGraph build based on ontology - Python source code - %s\n\n" %emrGraphFileName, emrGraphFile.read())
 
-ontonotesGraphFile = open(ontonotesGraphFileName, 'r')
-print("\nGraph build based on ontology - Python source code - %s\n\n" %ontonotesGraphFileName, ontonotesGraphFile.read())
-
-#-- EMR
-emrOntologyMLGraphCreator = OntologyMLGraphCreator("EMR")
-emrGraphFileName = emrOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/EMR.owl", "EMRGraph.py")
-
-emrGraphFile = open(emrGraphFileName, 'r')
-print("\nGraph build based on ontology - Python source code - %s\n\n" %emrGraphFileName, emrGraphFile.read())
+if __name__ == '__main__' :
+    main()
