@@ -1,0 +1,28 @@
+# baseURI: http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl
+# imports: http://ontology.ihmc.us/ML/MLGraph.owl
+# imports: http://ontology.ihmc.us/ML/PhraseGraph.owl
+# imports: http://ontology.ihmc.us/ontonotes/ontonotes.owl
+
+@prefix mlgraph:  <http://ontology.ihmc.us/ML/MLGraph.owl#> .
+@prefix ontonotesBridgeToMLGraph:  <http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment "This ontology contains definition linking ontonotes concetps with Machine Learning Graph concepts. Created by Andrzej Uszok (auszok@ihmc.us)."^^xsd:string ;
+      owl:imports <http://ontology.ihmc.us/ML/MLGraph.owl> , <http://ontology.ihmc.us/ML/PhraseGraph.owl> , <http://ontology.ihmc.us/ontonotes/ontonotes.owl> .
+
+# Annotation of PhraseGraph.owl#phrase with graphName and graphType properties - making it a root of subgraph
+<http://ontology.ihmc.us/ML/PhraseGraph.owl#phrase>
+      mlgraph:graphName "ontonotesLinguistic"^^xsd:string ;
+      mlgraph:graphType "ling_graph"^^xsd:string .
+
+# Annotation of ontonotes.owl#Entity with graphName and graphType properties - making it a root of subgraph
+# Assigning PhraseGraph.owl#phrase as supper class of ontonotes.owl#Entity
+<http://ontology.ihmc.us/ontonotes/ontonotes.owl#Entity>
+      rdfs:subClassOf <http://ontology.ihmc.us/ML/PhraseGraph.owl#phrase> ;
+      mlgraph:graphName "ontonotesApplication"^^xsd:string ;
+      mlgraph:graphType "app_graph"^^xsd:string .

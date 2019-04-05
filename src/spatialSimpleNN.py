@@ -244,8 +244,3 @@ with torch.no_grad(): # In test phase, we don't need to compute gradients (for m
                 print(newSprl_sentences_df['TEXT'][index], "  --- classified a", spatialDataLoader.output[_Lpredicted][1], '\n')
             else:
                 print(newSprl_sentences_df['TEXT'][index], "  --- classified a", spatialDataLoader.output[_Tpredicted][1], '\n')
-        
-        
-        
-    
-

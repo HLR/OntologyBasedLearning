@@ -1,0 +1,74 @@
+# baseURI: http://ontology.ihmc.us/ML/EMR.owl
+# imports: http://ontology.ihmc.us/ML/MLGraph.owl
+# imports: http://ontology.ihmc.us/ML/PhraseGraph.owl
+
+@prefix emr:     <http://ontology.ihmc.us/ML/EMR.owl#> .
+@prefix mlgraph:  <http://ontology.ihmc.us/ML/MLGraph.owl#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.ihmc.us/ML/EMR.owl>
+      rdf:type owl:Ontology ;
+      rdfs:comment "This ontology contains EMR concepts. Created by Andrzej Uszok (auszok@ihmc.us)."^^xsd:string ;
+      owl:imports <http://ontology.ihmc.us/ML/MLGraph.owl> , <http://ontology.ihmc.us/ML/PhraseGraph.owl> .
+
+emr:O
+      rdf:type owl:Class ;
+      rdfs:comment "EMR ontology O."^^xsd:string ;
+      rdfs:subClassOf emr:entity .
+
+# Annotation of emr:entity with graphName and graphType properties - making it a root of subgraph
+# Assigning PhraseGraph.owl#phrase as supper class of emr:entity
+emr:entity
+      rdf:type owl:Class ;
+      rdfs:comment "EMR ontology entity."^^xsd:string ;
+      rdfs:subClassOf <http://ontology.ihmc.us/ML/PhraseGraph.owl#phrase> ;
+      mlgraph:graphName "application"^^xsd:string ;
+      mlgraph:graphType "app_graph"^^xsd:string .
+
+emr:live_in
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain emr:people ;
+      rdfs:range emr:location .
+
+emr:located_in
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain emr:organization ;
+      rdfs:range emr:location .
+
+emr:location
+      rdf:type owl:Class ;
+      rdfs:comment "EMR ontology location."^^xsd:string ;
+      rdfs:subClassOf emr:entity .
+
+emr:organization
+      rdf:type owl:Class ;
+      rdfs:comment "EMR ontology organization."^^xsd:string ;
+      rdfs:subClassOf emr:entity .
+
+emr:orgbase_on
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain emr:organization ;
+      rdfs:range emr:location .
+
+emr:other
+      rdf:type owl:Class ;
+      rdfs:comment "EMR ontology other."^^xsd:string ;
+      rdfs:subClassOf emr:entity .
+
+emr:people
+      rdf:type owl:Class ;
+      rdfs:comment "EMR ontology people."^^xsd:string ;
+      rdfs:subClassOf emr:entity .
+
+emr:work_for
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain emr:people ;
+      rdfs:range emr:organization .
+
+# Annotation of PhraseGraph.owl#phrase with graphName and graphType properties - making it a root of subgraph
+<http://ontology.ihmc.us/ML/PhraseGraph.owl#phrase>
+      mlgraph:graphName "linguistic"^^xsd:string ;
+      mlgraph:graphType "ling_graph"^^xsd:string .

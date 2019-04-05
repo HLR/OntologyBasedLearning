@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:mlgraph="http://ontology.ihmc.us/ML/MLGraph.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:ontonotesBridgeToMLGraph="http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl#"
+  xml:base="http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://ontology.ihmc.us/ontonotes/ontonotes.owl"/>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/ML/PhraseGraph.owl"/>
+    <owl:imports rdf:resource="http://ontology.ihmc.us/ML/MLGraph.owl"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This ontology contains definition linking ontonotes concetps with Machine Learning Graph concepts. Created by Andrzej Uszok (auszok@ihmc.us).</rdfs:comment>
+  </owl:Ontology>
+  <rdf:Description rdf:about="http://ontology.ihmc.us/ontonotes/ontonotes.owl#Entity">
+    <mlgraph:graphType rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >app_graph</mlgraph:graphType>
+    <mlgraph:graphName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ontonotesApplication</mlgraph:graphName>
+    <rdfs:subClassOf>
+      <rdf:Description rdf:about="http://ontology.ihmc.us/ML/PhraseGraph.owl#phrase">
+        <mlgraph:graphType rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >ling_graph</mlgraph:graphType>
+        <mlgraph:graphName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >ontonotesLinguistic</mlgraph:graphName>
+      </rdf:Description>
+    </rdfs:subClassOf>
+  </rdf:Description>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->
