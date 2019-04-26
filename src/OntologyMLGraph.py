@@ -7,26 +7,30 @@ class OntologyMLGraphCreator :
     'Class building graph based on ontology'
     
     # Templates for the elements of the Python graph
-    graphHeaderTemplate = Template('\twith Graph(\'${graphName}\') as ${graphType}:\n')
+    graphImportTemlate =  Template('\tfrom regr import Graph, Concept\n\n')
+    graphHeaderTemplate = Template('\twith Graph(\'${graphName}\') as ${graphVar}:\n')
+    graphOntologyTemplate = Template('\t${graphVar}.ontology=\'${ontologyURL}\'\n\n')
     conceptTemplate = Template('\t$conceptName = Concept(name=\'${conceptName}\')\n')
-    subclassTemplate = Template('\t${conceptName}.be(\'${superClassName}\')\n')
+    subclassTemplate = Template('\t${conceptName}.be(${superClassName})\n')
     relationTemplate = Template('\t${relationName}.be((${domanName}, ${rangeName}))\n')
     
     def __init__(self, name) :
         self.name = name
     
-    def buildSubGraph(self, myOnto, graphRootClass, tabSize, graphFile) :
+    def buildSubGraph(self, ontology, myOnto, graphRootClass, tabSize, graphFile) :
         print("\tBuilding subgraph for --- %s ----".expandtabs(2) %graphRootClass)
         
         # Collect all concept from this subgrapoh
         subGraphConcepts = []
         
-        # Get graphName and graphType for teh subgraph from annotations of graphRootClass
-        graphFile.write(self.graphHeaderTemplate.substitute(graphName=graphRootClass.graphName.first(), graphType=graphRootClass.graphType.first()).expandtabs(tabSize))
+        # Get graphName and graphVar for the subgraph from annotations of graphRootClass
+        graphFile.write(self.graphHeaderTemplate.substitute(graphName=graphRootClass.graphName.first(), graphVar=graphRootClass.graphType.first()).expandtabs(tabSize))
 
         # Increase tab for generated code
         tabSize+=tabSize
         
+        graphFile.write(self.graphOntologyTemplate.substitute(graphVar=graphRootClass.graphType.first(), ontologyURL=ontology).expandtabs(tabSize));
+
         # Add root concept to the graph
         graphFile.write(self.conceptTemplate.substitute(conceptName=graphRootClass._name).expandtabs(tabSize))
         for parent in graphRootClass.is_a : # immediate parent without self
@@ -103,12 +107,14 @@ class OntologyMLGraphCreator :
         graphFile = open(fileName, "w")
         
         # Write Global Graph header
-        graphFile.write(self.graphHeaderTemplate.substitute(graphName='global', graphType='graph').expandtabs(0));
+        graphFile.write(self.graphImportTemlate.substitute().expandtabs(0));
+        graphFile.write(self.graphHeaderTemplate.substitute(graphName='global', graphVar='graph').expandtabs(0));
+        graphFile.write(self.graphOntologyTemplate.substitute(graphVar='graph', ontologyURL=ontology).expandtabs(4));
 
         print("\nFound root graph concepts - \n")
         for rootConcept in rootGraphConcepts :
             # Build subgraph for each found graph root concept
-            self.buildSubGraph(myOnto, rootConcept, 4, graphFile)
+            self.buildSubGraph(ontology, myOnto, rootConcept, 4, graphFile)
             graphFile.write("\n")
 
         graphFile.close()
@@ -118,6 +124,13 @@ class OntologyMLGraphCreator :
 # --------- Testing
 
 def main() :
+     #-- EMR
+    emrOntologyMLGraphCreator = OntologyMLGraphCreator("EMR")
+    emrGraphFileName = emrOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/EMR.owl", "EMRGraph.py")
+    
+    emrGraphFile = open(emrGraphFileName, 'r')
+    print("\nGraph build based on ontology - Python source code - %s\n\n" %emrGraphFileName, emrGraphFile.read())
+
     #-- Ontonotes
     ontonotesOntologyMLGraphCreator = OntologyMLGraphCreator("Ontonotes")
     ontonotesGraphFileName = ontonotesOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/ontonotesBridgeToMLGraph.owl", "OntonotesGraph.py") 
@@ -125,12 +138,6 @@ def main() :
     ontonotesGraphFile = open(ontonotesGraphFileName, 'r')
     print("\nGraph build based on ontology - Python source code - %s\n\n" %ontonotesGraphFileName, ontonotesGraphFile.read())
     
-    #-- EMR
-    emrOntologyMLGraphCreator = OntologyMLGraphCreator("EMR")
-    emrGraphFileName = emrOntologyMLGraphCreator.buildGraph("http://ontology.ihmc.us/ML/EMR.owl", "EMRGraph.py")
-    
-    emrGraphFile = open(emrGraphFileName, 'r')
-    print("\nGraph build based on ontology - Python source code - %s\n\n" %emrGraphFileName, emrGraphFile.read())
-
+   
 if __name__ == '__main__' :
     main()
